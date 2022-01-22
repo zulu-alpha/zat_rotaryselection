@@ -1,6 +1,7 @@
 _heli = _this select 0;
 
-if !(local _heli) exitWith {};  // Probably not needed as idempotent?
+if !(local _heli) exitwith {};
+// Probably not needed as idempotent?
 
 // Get current number of cargo units
 _cargo_count = count crew _heli;
@@ -16,7 +17,7 @@ if (_payload_count > 0) then {
     }, {
         _i = _i + 1
     }] do {
-    _x = _group createUnit ["CFP_B_USRANGERS_Rifleman_AT_WDL_01", [0, 0, 0], [], 0, "NONE"];
+    _x = _group createUnit ["B_Soldier_F", [0, 0, 0], [], 0, "NONE"];
     // [_x] call zamf_fnc_disableAI;
 };
 
