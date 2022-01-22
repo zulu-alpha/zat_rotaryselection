@@ -14,6 +14,7 @@ _fnc_timer = {
         _time = [(_current_time - _start_time), "MM:SS.MS"] call BIS_fnc_secondstoString;
         _timer_exercise = _heli getVariable ["timer_exercise", ""];
         _timer_time = format ["<br/>%2 timer: <t color='#ffff00'>%1</t>", _time, _timer_exercise];
+
         if (_timer_exercise == "Control LZ1" || _timer_exercise == "Control LZ2") then {
             if ((_current_time - _start_time) >= 20.0) then {
                 _heli setVariable ["timer_running", false, true];

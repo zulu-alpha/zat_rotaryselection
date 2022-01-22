@@ -37,6 +37,11 @@ briefing=1;
 debriefing=1;
 AIkills = 0;
 
+corpseManagerMode = 1;
+corpseLimit = 1;
+corpseRemovalMinTime = 5; //seconds
+corpseRemovalMaxTime = 5; //seconds
+
 // Dangerous in MP
 enableDebugConsole = 1;
 // 0 = Default behavior, available only in editor

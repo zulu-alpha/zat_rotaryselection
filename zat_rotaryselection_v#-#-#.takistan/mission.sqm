@@ -12,7 +12,7 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={8330.0313,316.95859,2054.5493};
+		pos[]={8506.4854,510.35681,2046.5209};
 		dir[]={-0.66950601,-0.69895256,0.25144985};
 		up[]={-0.65432584,0.715168,0.24574856};
 		aside[]={0.35159546,0,0.93615198};
@@ -1052,7 +1052,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="heli_1 = _this select 0; publicVariable ""heli_1""; heli_1 setVariable [""name"", ""Heli 1"", true];heli_1 setVariable [""timer_running"", false, true]; heli_1 setVariable [""start_speed_text"", """", true]; heli_1 setVariable [""timer_text"", """", true];";
+							value="heli_1 = _this select 0; publicVariable ""heli_1""; heli_1 setVariable [""name"", ""Heli 1"", true];heli_1 setVariable [""timer_running"", false, true]; heli_1 setVariable [""start_speed_text"", """", true]; heli_1 setVariable [""timer_text"", """", true];{_belongsTo = _x getVariable [""belongs_to_heli_crew"", """"];if (_belongsTo == ""Heli 1"") then {heli_1 deletevehicleCrew _x;deleteVehicle _x;};} forEach allUnits;";
 						};
 					};
 				};
@@ -1256,7 +1256,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="heli_2 = _this select 0; publicVariable ""heli_2""; heli_2 setVariable [""name"", ""Heli 2"", true]; heli_2 setVariable [""timer_running"", false, true]; heli_2 setVariable [""start_speed_text"", """", true]; heli_2 setVariable [""timer_text"", """", true];";
+							value="heli_2 = _this select 0; publicVariable ""heli_2""; heli_2 setVariable [""name"", ""Heli 2"", true]; heli_2 setVariable [""timer_running"", false, true]; heli_2 setVariable [""start_speed_text"", """", true]; heli_2 setVariable [""timer_text"", """", true];{_belongsTo = _x getVariable [""belongs_to_heli_crew"", """"];if (_belongsTo == ""Heli 2"") then {heli_2 deletevehicleCrew _x;deleteVehicle _x;};} forEach allUnits;";
 						};
 					};
 				};
@@ -21439,7 +21439,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={8228.3408,296.04001,2019.9841};
-				angles[]={-0,4.2119269,0};
+				angles[]={0,4.2119269,0};
 			};
 			side="Empty";
 			flags=4;
@@ -21952,7 +21952,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={8344.4141,296.04001,2087.02};
-				angles[]={-0,4.2119269,0};
+				angles[]={0,4.2119269,0};
 			};
 			side="Empty";
 			flags=4;
