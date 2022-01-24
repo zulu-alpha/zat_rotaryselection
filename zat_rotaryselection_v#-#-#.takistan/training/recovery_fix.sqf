@@ -11,3 +11,4 @@ _heli setfuel 1;
  PAPABEAR = [West, "airbase"];
  _str = format["%1 repaired, refuled and it's crew healed", _heli getVariable ["name", str _heli]];
  PAPABEAR SideChat _str;
+ 

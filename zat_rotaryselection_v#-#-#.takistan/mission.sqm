@@ -5,17 +5,17 @@ class EditorData
 	angleGridStep=0.2617994;
 	scaleGridStep=1;
 	autoGroupingDist=10;
-	toggles=1;
+	toggles=1537;
 	class ItemIDProvider
 	{
-		nextID=181;
+		nextID=193;
 	};
 	class Camera
 	{
-		pos[]={2804.3201,1874.2473,1728.0916};
-		dir[]={0.86655509,-0.48915768,0.099580035};
-		up[]={0.48596928,0.87217999,0.055845357};
-		aside[]={0.11417174,-1.9589788e-007,-0.99351203};
+		pos[]={8506.4854,510.35681,2046.5209};
+		dir[]={-0.66950601,-0.69895256,0.25144985};
+		up[]={-0.65432584,0.715168,0.24574856};
+		aside[]={0.35159546,0,0.93615198};
 	};
 };
 binarizationWanted=0;
@@ -1052,7 +1052,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="heli_1 = _this select 0; publicVariable ""heli_1""; heli_1 setVariable [""name"", ""Heli 1"", true];heli_1 setVariable [""timer_running"", false, true]; heli_1 setVariable [""start_speed_text"", """", true]; heli_1 setVariable [""timer_text"", """", true];";
+							value="heli_1 = _this select 0; publicVariable ""heli_1""; heli_1 setVariable [""name"", ""Heli 1"", true];heli_1 setVariable [""timer_running"", false, true]; heli_1 setVariable [""start_speed_text"", """", true]; heli_1 setVariable [""timer_text"", """", true];{_belongsTo = _x getVariable [""belongs_to_heli_crew"", """"];if (_belongsTo == ""Heli 1"") then {heli_1 deletevehicleCrew _x;deleteVehicle _x;};} forEach allUnits;";
 						};
 					};
 				};
@@ -1256,7 +1256,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="heli_2 = _this select 0; publicVariable ""heli_2""; heli_2 setVariable [""name"", ""Heli 2"", true]; heli_2 setVariable [""timer_running"", false, true]; heli_2 setVariable [""start_speed_text"", """", true]; heli_2 setVariable [""timer_text"", """", true];";
+							value="heli_2 = _this select 0; publicVariable ""heli_2""; heli_2 setVariable [""name"", ""Heli 2"", true]; heli_2 setVariable [""timer_running"", false, true]; heli_2 setVariable [""start_speed_text"", """", true]; heli_2 setVariable [""timer_text"", """", true];{_belongsTo = _x getVariable [""belongs_to_heli_crew"", """"];if (_belongsTo == ""Heli 2"") then {heli_2 deletevehicleCrew _x;deleteVehicle _x;};} forEach allUnits;";
 						};
 					};
 				};
@@ -21334,7 +21334,7 @@ class Mission
 		{
 			dataType="Trigger";
 			position[]={3622.4751,222.46712,4916.7422};
-			angle=2.841675;
+			angle=2.8416736;
 			class Attributes
 			{
 				text="LZ1 End Trigger";
@@ -21376,7 +21376,7 @@ class Mission
 		{
 			dataType="Trigger";
 			position[]={1326.535,229.4024,3382.9309};
-			angle=2.841675;
+			angle=2.8416736;
 			class Attributes
 			{
 				text="LZ2 End Trigger";
@@ -21438,23 +21438,7 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8345.5518,296.04001,2086.1548};
-				angles[]={0,4.1774893,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-			};
-			id=165;
-			type="Land_HelipadCircle_F";
-		};
-		class Item149
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={8194.6973,296.04001,1999.2739};
+				position[]={8228.3408,296.04001,2019.9841};
 				angles[]={0,4.2119269,0};
 			};
 			side="Empty";
@@ -21465,53 +21449,17 @@ class Mission
 			id=166;
 			type="Land_HelipadCircle_F";
 		};
-		class Item150
-		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={8386.8057,296.04001,2016.1709};
-				angles[]={0,1.0320178,0};
-			};
-			side="Empty";
-			flags=4;
-			class Attributes
-			{
-			};
-			id=167;
-			type="Land_HelipadCircle_F";
-		};
-		class Item151
+		class Item149
 		{
 			dataType="Marker";
-			position[]={8386.7373,296.04001,2016.3818};
-			name="marker_8";
-			text="Position 3";
-			type="mil_dot";
-			colorName="ColorBlue";
-			id=168;
-		};
-		class Item152
-		{
-			dataType="Marker";
-			position[]={8345.5576,296.04001,2086.228};
-			name="marker_9";
-			text="Position 1";
-			type="mil_dot";
-			colorName="ColorBlue";
-			id=169;
-		};
-		class Item153
-		{
-			dataType="Marker";
-			position[]={8194.6172,296.04001,1999.2759};
+			position[]={8228.1094,296.04001,2019.4817};
 			name="marker_10";
 			text="Position 2";
 			type="mil_dot";
 			colorName="ColorBlue";
 			id=170;
 		};
-		class Item154
+		class Item150
 		{
 			dataType="Marker";
 			position[]={8347.251,296.04001,2051.5757};
@@ -21521,7 +21469,7 @@ class Mission
 			colorName="ColorGreen";
 			id=171;
 		};
-		class Item155
+		class Item151
 		{
 			dataType="Marker";
 			position[]={7857.4805,297.18619,2093.7168};
@@ -21535,7 +21483,7 @@ class Mission
 			angle=150.81395;
 			id=172;
 		};
-		class Item156
+		class Item152
 		{
 			dataType="Marker";
 			position[]={7222.1206,283.67685,1533.0737};
@@ -21549,7 +21497,7 @@ class Mission
 			angle=61.685997;
 			id=173;
 		};
-		class Item157
+		class Item153
 		{
 			dataType="Marker";
 			position[]={8657.8711,308.70313,2338.9995};
@@ -21563,7 +21511,7 @@ class Mission
 			angle=61.685997;
 			id=174;
 		};
-		class Item158
+		class Item154
 		{
 			dataType="Marker";
 			position[]={7530.7109,284.74252,1500.5908};
@@ -21578,7 +21526,7 @@ class Mission
 			id=175;
 			atlOffset=1.0702515;
 		};
-		class Item159
+		class Item155
 		{
 			dataType="Marker";
 			position[]={8556.4385,303.08844,2083.9956};
@@ -21592,7 +21540,7 @@ class Mission
 			angle=150.81395;
 			id=176;
 		};
-		class Item160
+		class Item156
 		{
 			dataType="Object";
 			class PositionInfo
@@ -21609,7 +21557,7 @@ class Mission
 			type="Windsock_01_F";
 			atlOffset=1.0923767;
 		};
-		class Item161
+		class Item157
 		{
 			dataType="Object";
 			class PositionInfo
@@ -21625,7 +21573,7 @@ class Mission
 			type="Windsock_01_F";
 			atlOffset=0.033416748;
 		};
-		class Item162
+		class Item158
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -21754,7 +21702,7 @@ class Mission
 				nAttributes=6;
 			};
 		};
-		class Item163
+		class Item159
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -21977,6 +21925,71 @@ class Mission
 				};
 				nAttributes=11;
 			};
+		};
+		class Item160
+		{
+			dataType="Trigger";
+			position[]={8228.3574,299.92401,2019.9139};
+			class Attributes
+			{
+				condition="((getDir (thisList select 0) > 50.0 && getDir (thisList select 0) < 70.0) || (getDir (thisList select 0) > 230.0 && getDir (thisList select 0) < 250.0)) && speed (thisList select 0) > -2 && speed (thisList select 0) < 2 && getPosAtl (thisList select 0) select 2 > 0.5 && getPosATL (thisList select 0) select 2 < 4.1";
+				onActivation="null = [""Control LZ1"",thisList select 0] execVM ""training\start_time.sqf""";
+				onDeactivation="(vehicle player) setVariable [""timer_running"", false, true];";
+				sizeA=5.2129998;
+				sizeB=5.1469998;
+				sizeC=2.4489999;
+				repeatable=1;
+				activationBy="ANYPLAYER";
+				triggerInterval=0.30000001;
+			};
+			id=181;
+			type="EmptyDetectorArea10x10";
+			atlOffset=3.8840027;
+		};
+		class Item161
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={8344.4141,296.04001,2087.02};
+				angles[]={0,4.2119269,0};
+			};
+			side="Empty";
+			flags=4;
+			class Attributes
+			{
+			};
+			id=189;
+			type="Land_HelipadCircle_F";
+		};
+		class Item162
+		{
+			dataType="Marker";
+			position[]={8344.1826,296.04001,2086.5176};
+			name="marker_11";
+			text="Position 2";
+			type="mil_dot";
+			colorName="ColorBlue";
+			id=190;
+		};
+		class Item163
+		{
+			dataType="Trigger";
+			position[]={8344.4307,299.92401,2086.95};
+			class Attributes
+			{
+				condition="((getDir (thisList select 0) > 50.0 && getDir (thisList select 0) < 70.0) || (getDir (thisList select 0) > 230.0 && getDir (thisList select 0) < 250.0)) && speed (thisList select 0) > -2 && speed (thisList select 0) < 2 && getPosAtl (thisList select 0) select 2 > 0.5 && getPosATL (thisList select 0) select 2 < 4.1";
+				onActivation="null = [""Control LZ2"",thisList select 0] execVM ""training\start_time.sqf""";
+				onDeactivation="(vehicle player) setVariable [""timer_running"", false, true];";
+				sizeA=5.2129998;
+				sizeB=5.1469998;
+				sizeC=2.4489999;
+				repeatable=1;
+				activationBy="ANYPLAYER";
+			};
+			id=191;
+			type="EmptyDetectorArea10x10";
+			atlOffset=3.8840027;
 		};
 	};
 	class Connections
