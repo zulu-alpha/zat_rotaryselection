@@ -53,10 +53,10 @@ _fnc_get_scores = {
 	// Set result to 0 (failed)
 	_result = 0;
 
-	if (_damage == 0.0 && _crew_damage == 0.0 && _entry_speed >= 190 && _entry_speed <= 210) then {
+	if (_damage == 0.0 and _crew_damage == 0.0 and _entry_speed >= 190 and _entry_speed <= 210) then {
 
 		// Normal Pass
-		if (_time <= 73 && _time > 63) then {
+		if (_time <= 73 and _time > 63) then {
 			["TaskSucceeded", ["Success","You passed this exercise.", 10]] call BIS_fnc_showNotification;
 			_heli setVariable ["lz1Passed", true, true];
 			_result = 1;
@@ -77,12 +77,12 @@ _fnc_get_scores = {
 	};
 
 	// Damage fail
-	if (_damage > 0.0 || _crew_damage > 0.0) then {
+	if (_damage > 0.0 or _crew_damage > 0.0) then {
 		["TaskFailed", ["Fail","Exercise failed. No crew or airframe damage allowed.", 10]] call BIS_fnc_showNotification;
 	};
 
 	// Entry speed fail
-	if (_entry_speed > 210 || _entry_speed < 190) then {
+	if (_entry_speed > 210 or _entry_speed < 190) then {
 		["TaskFailed", ["Fail","Exercise failed. Your entry speed must be within 10Km/h of 200Km/h.", 10]] call BIS_fnc_showNotification;
 	};
 
@@ -122,7 +122,7 @@ if (_trigger == "lz_1_trigger") then {
 
 // End trigger
 if (_trigger == "ep_1_trigger") then {
-	if (_isStarted && _lzLanded) then {
+	if (_isStarted and _lzLanded) then {
 		_heli setVariable ["timer_running", false, true];
 		_heli setVariable ["lz1IsStarted", false, true];
 		
@@ -132,7 +132,7 @@ if (_trigger == "ep_1_trigger") then {
 		call _fnc_cleanup_heli;
 	};
 
-	if (_isStarted && !_lzLanded) then {
+	if (_isStarted and !_lzLanded) then {
 		titleText ["You must land at LZ-1 first!", "PLAIN", 0.2];
 	};
 

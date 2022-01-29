@@ -43,7 +43,7 @@ if isServer then {
 if hasInterface then {
 
    // Make sure player initializes
-   waitUntil {(player == player) && !(isNull player)};
+   waitUntil {(player == player) and !(isNull player)};
 
    // Make sure ACRE initializes
    waitUntil {
@@ -55,7 +55,7 @@ if hasInterface then {
    if (playerSide == west) then {
 
       // Wait for server to be done
-      waitUntil {!isNil "zamf_var_freqsLowBlue" && !isNil "zamf_var_freqsHighBlue"};
+      waitUntil {!isNil "zamf_var_freqsLowBlue" and !isNil "zamf_var_freqsHighBlue"};
 
       // Set default frequencies for ACRE
       ["ACRE_PRC148", zamf_var_freqsLowBlue] call acre_api_fnc_setDefaultChannels;

@@ -29,7 +29,7 @@ _fnc_set_pax = {
 _fnc_pax_count = {
 	_i = 0;
 	{
-		if (!isplayer _x) then {
+		if (!isPlayer _x) then {
 			_i = _i + 1;
 		}
 	} forEach crew _heli;
@@ -47,7 +47,7 @@ _fnc_get_scores = {
 	// Set result to 0 (failed)
 	_result = 0;
 
-	if (_damage == 0.0 && _crew_damage == 0.0) then {
+	if (_damage == 0.0 and _crew_damage == 0.0) then {
 		// Pass
 		["TaskSucceeded", ["Success", "You passed this exercise", 10]] call BIS_fnc_showNotification;
         _heli setVariable ["ControlPassed", true, true];
@@ -90,7 +90,7 @@ _fnc_start_timer = {
 };
 
 // LZ trigger
-if ((_trigger == "LZ1" || _trigger == "LZ2" || _trigger == "LZ3" || _trigger == "LZ4") && _isStarted) then {
+if ((_trigger == "LZ1" or _trigger == "LZ2" or _trigger == "LZ3" or _trigger == "LZ4") and _isStarted) then {
 
 	switch (_trigger) do {
 		case "LZ1": { if (!_pos1) then { call _fnc_start_timer;};};
@@ -151,7 +151,7 @@ if (_trigger == "StartEnd") then {
     // End
     if (_isStarted) then {
         // if all landings are completed
-        if (_pos1 && _pos2 && _pos3 && _pos4) then {
+        if (_pos1 and _pos2 and _pos3 and _pos4) then {
             // Get the end time
             _end_time = if (isMultiplayer) then {
                 servertime

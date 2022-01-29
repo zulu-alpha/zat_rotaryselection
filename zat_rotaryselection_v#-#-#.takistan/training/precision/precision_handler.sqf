@@ -76,7 +76,7 @@ _fnc_stop_success = {
 _fnc_pax_count = {
 	_i = 0;
 	{
-		if (!isplayer _x) then {
+		if (!isPlayer _x) then {
 			_i = _i + 1;
 		}
 	} forEach crew _heli;
@@ -93,10 +93,10 @@ _fnc_get_scores = {
 	// Set result to 0 (failed)
 	_result = 0;
 	
-	if (_damage == 0.0 && _crew_damage == 0.0) then {
+	if (_damage == 0.0 and _crew_damage == 0.0) then {
 
 		// Normal Pass
-		if (_time <= 220 && _time > 190) then {
+		if (_time <= 220 and _time > 190) then {
 			["TaskSucceeded", ["Success","You passed this exercise.", 10]] call BIS_fnc_showNotification;
 			_heli setVariable ["precisionPassed", true, true];
 			_result = 1;
@@ -138,7 +138,7 @@ if (_trigger == "lap_count_trigger") then {
 	};
 
 	// Increment lap counter up to 5
-	if (_isStarted && _lapCount < 5) then {
+	if (_isStarted and _lapCount < 5) then {
 		_heli setVariable ["precisionLapCount", (_lapCount + 1), true];
 	};
 };
@@ -147,7 +147,7 @@ if (_trigger == "lap_count_trigger") then {
 if (_trigger == "roof_landing_trigger") then {
 
 	// Increment landing counter up to 5
-	if (_isStarted && _lapCount == (_landingCount + 1) && _landingCount < 5) then {
+	if (_isStarted and _lapCount == (_landingCount + 1) and _landingCount < 5) then {
 		_landingCount = _landingCount + 1;
 		_heli setVariable ["precisionLandingCount", _landingCount, true];
 
@@ -161,7 +161,7 @@ if (_trigger == "roof_landing_trigger") then {
 };
 
 // Altitude trigger
-if (_trigger == "altitude_trigger" && _isStarted) then {
+if (_trigger == "altitude_trigger" and _isStarted) then {
 	["Altitude Limit Exceeded"] call _fnc_stop_fail;
 };
 
@@ -169,7 +169,7 @@ if (_trigger == "altitude_trigger" && _isStarted) then {
 if (_trigger == "shed_lz_trigger") then {
 
 	// Start of exercise
-	if (!_isStarted && _lapCount == 0) then {
+	if (!_isStarted and _lapCount == 0) then {
 		
 		_heli setVariable ["scoreText", "", true];
 		// Add pax if needed
@@ -205,7 +205,7 @@ if (_trigger == "shed_lz_trigger") then {
 
 	// End of exercise
 	// Will only fire if 5 laps and 5 landings have been completed
-	if (_isStarted && _lapCount >= 5 && _landingCount >= 5) then {
+	if (_isStarted and _lapCount >= 5 and _landingCount >= 5) then {
 		call _fnc_stop_success;
 		call _fnc_get_scores;
 		call _fnc_cleanup_heli;

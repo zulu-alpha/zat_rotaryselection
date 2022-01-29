@@ -3494,7 +3494,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={8273.5,296.93243,1814.125};
-				angles[]={-0,5.6957679,0};
+				angles[]={0,5.6957679,0};
 			};
 			side="Empty";
 			flags=4;
@@ -21431,7 +21431,7 @@ class Mission
 		{
 			dataType="Trigger";
 			position[]={1466.2679,224.45769,3535.1741};
-			angle=2.940757;
+			angle=2.9407568;
 			class Attributes
 			{
 				text="LZ-2 Landing Trigger";

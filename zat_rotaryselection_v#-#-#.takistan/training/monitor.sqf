@@ -20,13 +20,13 @@ _fnc_timer = {
         _timer_text = format ["<br/>%2 Timer: <t color='#ffff00'>%1</t>", _formattedtime, _exercise];
 
         // format for precision (includes lap counter)
-        if (_exercise == "precision" && _heli getVariable ["precisionIsStarted", false]) then {
+        if (_exercise == "precision" and _heli getVariable ["precisionIsStarted", false]) then {
             _timer_text = format ["<br/>%2 Timer: <t color='#ffff00'>%1 (Lap: %3/5)</t>", _formattedtime, _exercise, _heli getVariable ["precisionLapcount", 0]];
         };
 
         // format for Control (timer stops on 20 seconds)
         if (_exercise == "Control") then {
-            if ((_current_time - _start_time) >= 20.0 && _heli getVariable ["controlIsStarted", false]) then {
+            if ((_current_time - _start_time) >= 20.0 and _heli getVariable ["controlIsStarted", false]) then {
                 _heli setVariable ["timer_running", false, true];
                 _trigger = _heli getVariable ["trigger", ""];
                 switch (_trigger) do {
@@ -77,7 +77,7 @@ while {
     waitUntil {
         _target_0 = call compile format ["%1", _heli_1];
         _target_1 = call compile format ["%1", _heli_2];
-        !(isNull _target_0) && !(isNull _target_1)
+        !(isNull _target_0) and !(isNull _target_1)
     };
 
     // Weight
@@ -97,7 +97,7 @@ while {
     // Heli 1 Crew
     _target_0_crew = [];
     {
-        if (isplayer _x) then {
+        if (isPlayer _x) then {
             _target_0_crew set [count _target_0_crew, name _x];
         }
     } forEach crew _target_0;
@@ -105,7 +105,7 @@ while {
     // Heli 1 Pax
     _target_0_pax_count = 0;
     {
-        if (!isplayer _x) then {
+        if (!isPlayer _x) then {
             _target_0_pax_count = _target_0_pax_count + 1;
         }
     } forEach crew _target_0;
@@ -123,7 +123,7 @@ while {
     // Heli 2 Crew
     _target_1_crew = [];
     {
-        if (isplayer _x) then {
+        if (isPlayer _x) then {
             _target_1_crew set [count _target_1_crew, name _x];
         }
     } forEach crew _target_1;
@@ -131,7 +131,7 @@ while {
     // Heli 2 Pax
     _target_1_pax_count = 0;
     {
-        if (!isplayer _x) then {
+        if (!isPlayer _x) then {
             _target_1_pax_count = _target_1_pax_count + 1;
         }
     } forEach crew _target_1;
@@ -179,16 +179,16 @@ while {
     if ((isAutoHoverOn _target_0)) then {
         _target_0 setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
         _target_0 engineOn false;
-        private _sucker = _target_0_crew select 0;
-        _sucker = format ["<t color='#ff2684'>%1 (L)</t>", _sucker];
+        private _sucker_0 = _target_0_crew select 0;
+        _sucker_0 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker];
         _target_0_crew set [0, _sucker];
     };
 
     // Heli 2 Autohover punishment
     if ((isAutoHoverOn _target_1)) then {
         _target_1 setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
-        private _sucker = _target_1_crew select 0;
-        _sucker = format ["<t color='#ff2684'>%1 (L)</t>", _sucker];
+        private _sucker_1 = _target_1_crew select 0;
+        _sucker_1 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker];
         _target_1_crew set [0, _sucker];
     };
 
@@ -235,13 +235,13 @@ while {
         _target_1_pax_count,                            // 19 (Heli 2 Pax Count)
         _target_0 getVariable ["scoreText", ""],        // 20 (Heli 1 Score Text)
         _target_1 getVariable ["scoreText", ""],        // 21 (Heli 2 Score Text)
-        round _target_0_weight,                               // 22 (Heli 1 Weight)
-        round _target_1_weight                                // 23 (Heli 2 Weight)
+        round _target_0_weight,                         // 22 (Heli 1 Weight)
+        round _target_1_weight                          // 23 (Heli 2 Weight)
     ];
 };
 /*
 waitUntil {
-    (!isNull heli_1) && (!isNull heli_2)
+    (!isNull heli_1) and (!isNull heli_2)
 };
 // Monitor Exam Littlebirds
 [heli_1, heli_2] execVM "training\monitor.sqf";

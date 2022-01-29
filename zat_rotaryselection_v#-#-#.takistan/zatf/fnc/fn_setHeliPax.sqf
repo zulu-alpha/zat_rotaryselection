@@ -22,7 +22,7 @@ params ["_heli", "_count"];
 // Remove crew function
 _fnc_remove_crew = {
 	params ["_n"];
-	if (_n > 0 && count _pax_array > 0) then {
+	if (_n > 0 and count _pax_array > 0) then {
 		reverse _pax_array;
 		for "_i" from 0 to (_n - 1) do {
 			_x = _pax_array select _i;
@@ -80,14 +80,14 @@ private _removed = 0;
 _count = _count - _crew_count;
 
 // If there is only 1 player in the heli, then add first ai to copilot seat
-if (_crew_count == 1 && _count > _pax_count) then {
+if (_crew_count == 1 and _count > _pax_count) then {
 	call _fnc_add_copilot;
 	_count = _count - 1;
 	_added = _added + 1;
 };
 
 // If the desired number of occupants is less than the current crew count, remove some
-if (_count < _pax_count && _pax_count > 0) then {
+if (_count < _pax_count and _pax_count > 0) then {
 	[(_pax_count - _count)] call _fnc_remove_crew;
 	_removed = _removed + (_pax_count - _count);
 };

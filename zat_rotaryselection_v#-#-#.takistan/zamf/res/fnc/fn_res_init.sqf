@@ -25,7 +25,7 @@ if !(isMultiplayer) exitWith {};
 	//if (count (allMissionObjects "ALiVE_sys_player") > 0) exitWith {diag_log "ZAM - Resume detected alive player persistance and halted."};
 
 	// Allow mod to be disabled
-	if (!(isNil "zamf_res_enabled") && {!(zamf_res_enabled)}) exitwith {/*diag_log "res_init.sqf - Finished (disabled)";*/};
+	if (!(isNil "zamf_res_enabled") and {!(zamf_res_enabled)}) exitwith {/*diag_log "res_init.sqf - Finished (disabled)";*/};
 
 	// Safety sleep
 	sleep 6;
@@ -45,7 +45,7 @@ if !(isMultiplayer) exitWith {};
 	};
 
 	// Done with Client
-	if !(isMultiplayer && isServer) exitWith {};
+	if !(isMultiplayer and isServer) exitWith {};
 
 	// initialize global storage variables
 	zamf_res_var_array = [];
