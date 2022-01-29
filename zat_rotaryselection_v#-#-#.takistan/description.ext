@@ -15,6 +15,7 @@ forceRotorLibSimulation = 1;
 class CfgFunctions
 {
     #include "zamf\cfgfunctions.hpp"
+    #include "zatf\cfgfunctions.hpp"
 };
 
 // Enabling remote execution: https://community.bistudio.com/wiki/CfgRemoteExec
