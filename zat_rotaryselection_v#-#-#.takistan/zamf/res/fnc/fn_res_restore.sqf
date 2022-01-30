@@ -45,22 +45,22 @@ if (_earplugs) then {
 
 //// Restore positional information
 // Was in a vehicle that still exists
-if ( (_role != "") && {!(isNil {_vehicle})} && {!(isNull _vehicle)} && {!(_vehicle isKindOf "Man")} ) then {
+if ( (_role != "") and {!(isNil {_vehicle})} and {!(isNull _vehicle)} and {!(_vehicle isKindOf "Man")} ) then {
 
 	call {
 
 		// Driver
-		if ((_role == "Driver") && {_vehicle emptyPositions _role != 0}) exitWith {
+		if ((_role == "Driver") and {_vehicle emptyPositions _role != 0}) exitWith {
 			_player moveInDriver _vehicle
 		};
 
 		// Gunner
-		if ((_role == "Gunner") && {_vehicle emptyPositions _role != 0}) exitWith {
+		if ((_role == "Gunner") and {_vehicle emptyPositions _role != 0}) exitWith {
 			_player moveInGunner _vehicle
 		};
 
 		// Commander
-		if ((_role == "Commander") && {_vehicle emptyPositions _role != 0}) exitWith {
+		if ((_role == "Commander") and {_vehicle emptyPositions _role != 0}) exitWith {
 			_player moveInCommander _vehicle
 		};
 

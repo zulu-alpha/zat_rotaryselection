@@ -19,6 +19,6 @@
 // Devas Autopilot
 [] execVM "AutoPilot\AutoPilotInit.sqf";
 
-//// Youre code here
+//// Your code here
 // Monitor status
 ["heli_1","heli_2"] execvm "training\monitor.sqf";

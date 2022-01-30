@@ -1,24 +1,24 @@
-params ["_timer_exercise", "_timer_target_heli"];
+params ["_exercise", "_heli"];
 
-if !(local _timer_target_heli) exitwith {};
+if !(local _heli) exitwith {};
 
-playSound3D ["a3\sounds_f\air\Heli_Light_01\warning.wss", player];
+playSound3D ["a3\sounds_f\air\Heli_Light_01\warning.wss", _heli, true, _heli, 1, 1, 5, 0, false];
 
-_timer_target_heli setVariable ["timer_exercise", _timer_exercise, true];
+_heli setVariable ["exercise", _exercise, true];
 
 _current_time = if (isMultiplayer) then {
     servertime
 } else {
     diag_ticktime
 };
-_timer_target_heli setVariable ["time_start", _current_time, true];
-_timer_target_heli setVariable ["timer_running", true, true];
+_heli setVariable ["time_start", _current_time, true];
+_heli setVariable ["timer_running", true, true];
 
-if (_timer_exercise == "LZ-1" || _timer_exercise == "LZ-2") then {
-	_start_speed = speed _timer_target_heli;
-	_timer_target_heli setVariable [
-		"start_speed_text",
-		format ["<br/>Entry speed: <t color='#ffff00'>%1 Km/h</t>", _start_speed],
-		true
-	];
-}
+// if (_exercise == "LZ-1" or _exercise == "LZ-2") then {
+// 	_start_speed = speed _heli;
+// 	_heli setVariable [
+// 		"start_speed_text",
+// 		format ["<br/>Entry speed: <t color='#ffff00'>%1 Km/h</t>", _start_speed],
+// 		true
+// 	];
+// }

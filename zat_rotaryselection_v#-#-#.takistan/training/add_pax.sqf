@@ -12,17 +12,13 @@ _payload_count = 6 - _cargo_count;
 
 if (_payload_count > 0) then {
     _group = creategroup west;
-    for [{
-        _i = 0
-    }, {
-        _i < _payload_count
-    }, {
-        _i = _i + 1
-    }] do {
-    _x = _group createUnit ["B_Soldier_F", [0, 0, 0], [], 0, "NONE"];
-    _x setVariable ["belongs_to_heli_crew", _heli_name, true];
-    // [_x] call zamf_fnc_disableAI;
+
+    for "_i" from 1 to _payload_count do {
+        _x = _group createUnit ["B_Soldier_F", [0, 0, 0], [], 0, "NONE"];
+        _x setVariable ["belongs_to", _heli_name, true];
     };
+
+
 
     {
         _x assignAsCargo _heli;
