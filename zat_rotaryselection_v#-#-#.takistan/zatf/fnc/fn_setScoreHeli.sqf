@@ -37,7 +37,7 @@ switch (_result) do {
 		_resultText = format ["Result: <t color='#00bf16'>%1</t><br/>", 'Passed'];
 	};
 	case 2: {
-		_resultText = format ["Result: <t color='#e68405'>%1</t><br/>", 'Merit'];
+		_resultText = format ["Result: <t color='#FFD700'>%1</t><br/>", 'Merit'];
 	};
 	default { };
 };

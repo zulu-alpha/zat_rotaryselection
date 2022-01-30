@@ -21,4 +21,7 @@
 
 //// Your code here
 // Monitor status
-["heli_1","heli_2"] execvm "training\monitor.sqf";
+["heli_1","heli_2"] execVM "training\monitor.sqf";
+
+// Garbage collect orphaned ai every 30 seconds
+[] execVM "training\garbage_collector.sqf";

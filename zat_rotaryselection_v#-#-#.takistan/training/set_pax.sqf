@@ -1,5 +1,5 @@
 _target = (_this select 3) select 0;
-_dam = (_this select 3) select 1;
+_number = (_this select 3) select 1;
 
 _heli = nil;
 switch (_target) do {
@@ -8,4 +8,4 @@ switch (_target) do {
     default { };
 };
 
-_heli setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitVRotor" >> "name"), _dam];
+[_heli, _number] remoteExec ["zatf_fnc_setHeliPax", 0];

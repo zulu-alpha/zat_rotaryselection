@@ -27,6 +27,7 @@ _fnc_remove_crew = {
 		for "_i" from 0 to (_n - 1) do {
 			_x = _pax_array select _i;
 			_heli deleteVehicleCrew _x;
+			_removed = _removed + 1;
 		};
 	};
 };
@@ -38,6 +39,7 @@ _fnc_add_crew = {
 	for "_i" from 0 to _n do {
 		_x = _group createUnit ["B_Soldier_F", [0, 0, 0], [], 0, "NONE"];
         _x setVariable ["belongs_to", _heli_name, true];
+		_added = _added + 1;
 	};
 	{
         _x assignAsCargo _heli;
@@ -51,6 +53,7 @@ _fnc_add_copilot = {
 	_unit setVariable ["belongs_to", _heli_name, true];
 	_unit assignAsTurret [_heli, [0]];
 	_unit moveInTurret [_heli, [0]];
+	_added = _added + 1;
 };
 
 
@@ -83,19 +86,17 @@ _count = _count - _crew_count;
 if (_crew_count == 1 and _count > _pax_count) then {
 	call _fnc_add_copilot;
 	_count = _count - 1;
-	_added = _added + 1;
+	_pax_count = _pax_count + 1;
 };
 
 // If the desired number of occupants is less than the current crew count, remove some
 if (_count < _pax_count and _pax_count > 0) then {
 	[(_pax_count - _count)] call _fnc_remove_crew;
-	_removed = _removed + (_pax_count - _count);
 };
 
 // If the desired number of occupants is greater than the current crew count, add some
 if (_count > _pax_count) then {
 	[(_count - _pax_count)] call _fnc_add_crew;
-	_added = _added + (_count - _pax_count);
 };
 
 // If the desired number of occupants is equal to the current crew count, do nothing
