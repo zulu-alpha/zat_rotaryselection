@@ -16,5 +16,4 @@ _heli setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "Hit
 
 if (!isEngineOn _heli and _dam == 0) then {
     _heli engineOn true;
-	_heli setWantedRPMRTD [2200, 0.2, -1];
 };

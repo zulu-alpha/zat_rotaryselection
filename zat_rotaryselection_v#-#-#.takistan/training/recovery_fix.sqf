@@ -17,7 +17,6 @@ _heli setFuel 1;
 
 if (!isEngineOn _heli) then {
     _heli engineOn true;
-	_heli setWantedRPMRTD [2200, 0.2, -1];
 };
 
 PAPABEAR = [west, "airbase"];
