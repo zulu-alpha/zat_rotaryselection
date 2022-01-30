@@ -9,6 +9,8 @@ if !(player == driver _heli) exitwith {};
 _heli setVariable ["exercise", _exercise, true];
 _heli setVariable ["trigger", _trigger, true];
 
+
+// Clean up exercise variables
 _fnc_cleanup_control = {
     _heli setVariable ["controlIsStarted", false, true];
     _heli setVariable ["controlPos1", false, true];
@@ -37,6 +39,7 @@ _fnc_cleanup_lz2 = {
 	_heli setVariable ["lz2Landed", false, true];
 };
 
+// Clean up exercise variables for non-relevant exercises
 // Send to correct handler, based on the exercise
 switch (_exercise) do {
     case "Precision": {

@@ -1,6 +1,7 @@
 params ["_heli_1", "_heli_2"];
 
 if !(hasinterface) exitwith {};
+
 _fnc_timer = {
     params ["_heli"];
     if (_heli getVariable ["timer_running", false]) then {
@@ -67,6 +68,11 @@ _fnc_timer = {
         _heli setVariable ["timer_text", _timer_text, true];
     };
 };
+
+_target_0_damage_colour = '#ffff00';
+_target_0_crew_damage_colour = '#ffff00';
+_target_1_damage_colour = '#ffff00';
+_target_1_crew_damage_colour = '#ffff00';
 
 while {
     sleep 0.1;
@@ -165,6 +171,32 @@ while {
     _target_0 setVariable ["damage", _target_0_dam, true];
     _target_0 setVariable ["crew_damage", _target_0_avg_crew_dam, true];
 
+    // Set damage colours
+    if (_target_0_dam > 0) then {
+        _target_0_damage_colour = '#e80000';
+    } else {
+        _target_0_damage_colour = '#ffff00';
+    };
+
+    if (_target_0_avg_crew_dam > 0) then {
+        _target_0_crew_damage_colour = '#e80000';
+    } else {
+        _target_0_crew_damage_colour = '#ffff00';
+    };
+
+    if (_target_1_dam > 0) then {
+        _target_1_damage_colour = '#e80000';
+    } else {
+        _target_1_damage_colour = '#ffff00';
+    };
+
+    if (_target_1_avg_crew_dam > 0) then {
+        _target_1_crew_damage_colour = '#e80000';
+    } else {
+        _target_1_crew_damage_colour = '#ffff00';
+    };
+
+
     // Set Heli 2 damage
     _target_1 setVariable ["damage", _target_1_dam, true];
     _target_1 setVariable ["crew_damage", _target_1_avg_crew_dam, true];
@@ -180,24 +212,24 @@ while {
         _target_0 setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
         _target_0 engineOn false;
         private _sucker_0 = _target_0_crew select 0;
-        _sucker_0 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker];
-        _target_0_crew set [0, _sucker];
+        _sucker_0 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker_0];
+        _target_0_crew set [0, _sucker_0];
     };
 
     // Heli 2 Autohover punishment
     if ((isAutoHoverOn _target_1)) then {
         _target_1 setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
         private _sucker_1 = _target_1_crew select 0;
-        _sucker_1 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker];
-        _target_1_crew set [0, _sucker];
+        _sucker_1 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker_1];
+        _target_1_crew set [0, _sucker_1];
     };
 
     // Build text string
     hintSilent parsetext format ["
-        <t align='left'>Heli: <t color='#ffff00'>%2 (%22Kg)</t>
+        <t align='left'>%2 <t color='#ffff00'>(%22Kg)</t>
         <br/>Crew: <t color='#ffff00'>%3</t>
         <br/>Pax: <t color='#ffff00'>%18</t>
-        <br/>Damage: <t color='#ffff00'>[%4%1, %5%1]</t>
+        <br/>Damage: [<t color='%24'>%4%1</t>, <t color='%25'>%5%1</t>]
         <br/>Speed: <t color='#ffff00'>%6 Km/h</t>
         <br/>Altitude: <t color='#ffff00'>%7 ft</t>
         %14
@@ -205,10 +237,10 @@ while {
         <br/>
         %20
         <br/>
-        <br/>Heli: <t color='#ffff00'>%8 (%23Kg)</t>
+        <br/>%8 <t color='#ffff00'>(%23Kg)</t>
         <br/>Crew: <t color='#ffff00'>%9</t>
         <br/>Pax: <t color='#ffff00'>%19</t>
-        <br/>Damage: <t color='#ffff00'>[%10%1, %11%1]</t>
+        <br/>Damage: [<t color='%26'>%10%1</t>, <t color='%27'>%11%1</t>]
         <br/>Speed: <t color='#ffff00'>%12 Km/h</t>
         <br/>Altitude: <t color='#ffff00'>%13 ft</t>
         %15
@@ -217,14 +249,14 @@ while {
         "%",                                            // 1  (Percentage Sign)
         _target_0 getVariable ["name", str _target_0],  // 2  (Heli 1 Name)
         _target_0_crew joinString  ", ",                // 3  (Heli 1 Crew Names)
-        _target_0_dam,                                  // 4  (Heli 1 Damage)
-        _target_0_avg_crew_dam,                         // 5  (Heli 1 Crew Damage)
+        _target_0_dam toFixed 2,                        // 4  (Heli 1 Damage)
+        _target_0_avg_crew_dam toFixed 2,               // 5  (Heli 1 Crew Damage)
         _target_0_speed,                                // 6  (Heli 1 Speed)
         _target_0_alt,                                  // 7  (Heli 1 Altitude (Feet))
         _target_1 getVariable ["name", str _target_1],  // 8  (Heli 2 Name)
         _target_1_crew joinString ", ",                 // 9  (Heli 2 Crew Names)
-        _target_1_dam,                                  // 10 (Heli 2 Damage)
-        _target_1_avg_crew_dam,                         // 11 (Heli 2 Crew Damage)
+        _target_1_dam toFixed 2,                        // 10 (Heli 2 Damage)
+        _target_1_avg_crew_dam toFixed 2,               // 11 (Heli 2 Crew Damage)
         _target_1_speed,                                // 12 (Heli 2 Speed)
         _target_1_alt,                                  // 13 (Heli 2 Altitude (Feet))
         _target_0 getVariable ["timer_text", ""],       // 14 (Heli 1 Timer Text)
@@ -236,12 +268,10 @@ while {
         _target_0 getVariable ["scoreText", ""],        // 20 (Heli 1 Score Text)
         _target_1 getVariable ["scoreText", ""],        // 21 (Heli 2 Score Text)
         round _target_0_weight,                         // 22 (Heli 1 Weight)
-        round _target_1_weight                          // 23 (Heli 2 Weight)
+        round _target_1_weight,                         // 23 (Heli 2 Weight)
+        _target_0_damage_colour,                        // 24 (Heli 1 Damage Colour)
+        _target_0_crew_damage_colour,                   // 25 (Heli 1 Crew Damage Colour)
+        _target_1_damage_colour,                        // 26 (Heli 2 Damage Colour)
+        _target_1_crew_damage_colour                    // 27 (Heli 2 Crew Damage Colour)
     ];
 };
-/*
-waitUntil {
-    (!isNull heli_1) and (!isNull heli_2)
-};
-// Monitor Exam Littlebirds
-[heli_1, heli_2] execVM "training\monitor.sqf";
