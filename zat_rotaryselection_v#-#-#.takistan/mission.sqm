@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={7728.104,356.74179,1887.1136};
-		dir[]={-0.2579101,-0.49416479,-0.83026558};
-		up[]={-0.14660153,0.86935937,-0.47194263};
-		aside[]={-0.95501006,3.6961865e-008,0.29666001};
+		pos[]={8311.3682,356.74179,1908.6885};
+		dir[]={0.24623892,-0.83677888,-0.48904756};
+		up[]={0.37631434,0.54754096,-0.7473864};
+		aside[]={-0.89317071,0,-0.44971782};
 	};
 };
 binarizationWanted=0;
@@ -3807,7 +3807,7 @@ class Mission
 					class Attributes
 					{
 						rank="CAPTAIN";
-						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team;" \n "[this, curator_ds1] call zamf_fnc_zeus_ensureUnit;};" \n "this addAction ["""",{}];" \n "this addAction [""Heli 1 Repair"", ""training\recovery_fix.sqf"", [""Heli 1""]];  " \n "this addAction [""Heli 1 Disable Engine"", ""training\recovery_eng.sqf"", [""Heli 1"",1]];  " \n "this addAction [""Heli 1 Disable Tail Rotor"", ""training\recovery_tail.sqf"", [""Heli 1"",1]];  " \n "this addAction [""Heli 1 Add Pax"", ""training\set_pax.sqf"", [""Heli 1"",6]];  " \n "this addAction [""Heli 1 Remove Pax"", ""training\set_pax.sqf"", [""Heli 1"",0]];  " \n "this addAction [""Heli 2 Repair"", ""training\recovery_fix.sqf"", [""Heli 2""]];  " \n "this addAction [""Heli 2 Disable Engine"", ""training\recovery_eng.sqf"", [""Heli 2"",1]];  " \n "this addAction [""Heli 2 Disable Tail Rotor"", ""training\recovery_tail.sqf"", [""Heli 2"",1]]; " \n "this addAction [""Heli 2 Add Pax"", ""training\set_pax.sqf"", [""Heli 2"",6]];  " \n "this addAction [""Heli 2 Remove Pax"", ""training\set_pax.sqf"", [""Heli 2"",0]]; ";
+						init="[this, curator_ds1] execVM ""training\ds_init.sqf""";
 						name="ds_1";
 						description="DS'0";
 						isPlayer=1;
@@ -3947,7 +3947,7 @@ class Mission
 					class Attributes
 					{
 						rank="LIEUTENANT";
-						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team;" \n "this addAction ["""",{}];" \n "[this, curator_ds2] call zamf_fnc_zeus_ensureUnit;};" \n "this addAction [""Heli 1 Repair"", ""training\recovery_fix.sqf"", [""Heli 1""]];  " \n "this addAction [""Heli 1 Disable Engine"", ""training\recovery_eng.sqf"", [""Heli 1"",1]];  " \n "this addAction [""Heli 1 Disable Tail Rotor"", ""training\recovery_tail.sqf"", [""Heli 1"",1]];  " \n "this addAction [""Heli 1 Add Pax"", ""training\set_pax.sqf"", [""Heli 1"",6]];  " \n "this addAction [""Heli 1 Remove Pax"", ""training\set_pax.sqf"", [""Heli 1"",0]];  " \n "this addAction [""Heli 2 Repair"", ""training\recovery_fix.sqf"", [""Heli 2""]];  " \n "this addAction [""Heli 2 Disable Engine"", ""training\recovery_eng.sqf"", [""Heli 2"",1]];  " \n "this addAction [""Heli 2 Disable Tail Rotor"", ""training\recovery_tail.sqf"", [""Heli 2"",1]]; " \n "this addAction [""Heli 2 Add Pax"", ""training\set_pax.sqf"", [""Heli 2"",6]];  " \n "this addAction [""Heli 2 Remove Pax"", ""training\set_pax.sqf"", [""Heli 2"",0]]; ";
+						init="[this, curator_ds2] execVM ""training\ds_init.sqf""";
 						name="ds_2";
 						description="DS'1";
 						isPlayable=1;
@@ -4086,7 +4086,7 @@ class Mission
 					class Attributes
 					{
 						rank="LIEUTENANT";
-						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team;" \n "this addAction ["""",{}];" \n "[this, curator_ds3] call zamf_fnc_zeus_ensureUnit;};" \n "this addAction [""Heli 1 Repair"", ""training\recovery_fix.sqf"", [""Heli 1""]];  " \n "this addAction [""Heli 1 Disable Engine"", ""training\recovery_eng.sqf"", [""Heli 1"",1]];  " \n "this addAction [""Heli 1 Disable Tail Rotor"", ""training\recovery_tail.sqf"", [""Heli 1"",1]];  " \n "this addAction [""Heli 1 Add Pax"", ""training\set_pax.sqf"", [""Heli 1"",6]];  " \n "this addAction [""Heli 1 Remove Pax"", ""training\set_pax.sqf"", [""Heli 1"",0]];  " \n "this addAction [""Heli 2 Repair"", ""training\recovery_fix.sqf"", [""Heli 2""]];  " \n "this addAction [""Heli 2 Disable Engine"", ""training\recovery_eng.sqf"", [""Heli 2"",1]];  " \n "this addAction [""Heli 2 Disable Tail Rotor"", ""training\recovery_tail.sqf"", [""Heli 2"",1]]; " \n "this addAction [""Heli 2 Add Pax"", ""training\set_pax.sqf"", [""Heli 2"",6]];  " \n "this addAction [""Heli 2 Remove Pax"", ""training\set_pax.sqf"", [""Heli 2"",0]]; ";
+						init="[this, curator_ds3] execVM ""training\ds_init.sqf""";
 						name="ds_3";
 						description="DS'2";
 						isPlayable=1;

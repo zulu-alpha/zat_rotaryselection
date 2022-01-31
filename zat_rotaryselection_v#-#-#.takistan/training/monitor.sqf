@@ -69,6 +69,25 @@ _fnc_timer = {
     };
 };
 
+_fnc_session_timer = {
+    params ["_heli"];
+    if (_heli getVariable ["session_timer_running", false]) then {
+        private _start_time = _heli getVariable ["session_time_start", 0];
+        private _current_time = if (isMultiplayer) then {
+            servertime
+        } else {
+            diag_ticktime
+        };
+
+        private _time = _current_time - _start_time;
+        _heli setVariable ["session_timer_value", _time];
+
+        private _formattedtime = [_time, "MM:SS.MS"] call BIS_fnc_secondstoString;
+
+        _heli setVariable ["session_timer_text", format ["<t color='#ffff00'>%1</t>", _formattedtime]];
+    };
+};
+
 _target_0_damage_colour = '#ffff00';
 _target_0_crew_damage_colour = '#ffff00';
 _target_1_damage_colour = '#ffff00';
@@ -158,6 +177,10 @@ while {
     [_target_0] call _fnc_timer;
     [_target_1] call _fnc_timer;
 
+    // Start Session timers
+    [_target_0] call _fnc_session_timer;
+    [_target_1] call _fnc_session_timer;
+
 
     // Calculate damages
     _target_0_dam = ((damage _target_0) * 100);
@@ -226,7 +249,7 @@ while {
 
     // Build text string
     hintSilent parsetext format ["
-        <t align='left'>%2 <t color='#ffff00'>(%22Kg)</t>
+        <t align='left'>%2 <t color='#ffff00'>(%22Kg)</t> <t color='#ffff00' align='right'>%28</t>
         <br/>Crew: <t color='#ffff00'>%3</t>
         <br/>Pax: <t color='#ffff00'>%18</t>
         <br/>Damage: [<t color='%24'>%4%1</t>, <t color='%25'>%5%1</t>]
@@ -237,7 +260,7 @@ while {
         <br/>
         %20
         <br/>
-        <br/>%8 <t color='#ffff00'>(%23Kg)</t>
+        <br/>%8 <t color='#ffff00'>(%23Kg)</t> <t color='#ffff00' align='right'>%29</t>
         <br/>Crew: <t color='#ffff00'>%9</t>
         <br/>Pax: <t color='#ffff00'>%19</t>
         <br/>Damage: [<t color='%26'>%10%1</t>, <t color='%27'>%11%1</t>]
@@ -246,32 +269,34 @@ while {
         %15
         %17
         <br/>%21",
-        "%",                                            // 1  (Percentage Sign)
-        _target_0 getVariable ["name", str _target_0],  // 2  (Heli 1 Name)
-        _target_0_crew joinString  ", ",                // 3  (Heli 1 Crew Names)
-        _target_0_dam toFixed 2,                        // 4  (Heli 1 Damage)
-        _target_0_avg_crew_dam toFixed 2,               // 5  (Heli 1 Crew Damage)
-        _target_0_speed,                                // 6  (Heli 1 Speed)
-        _target_0_alt,                                  // 7  (Heli 1 Altitude (Feet))
-        _target_1 getVariable ["name", str _target_1],  // 8  (Heli 2 Name)
-        _target_1_crew joinString ", ",                 // 9  (Heli 2 Crew Names)
-        _target_1_dam toFixed 2,                        // 10 (Heli 2 Damage)
-        _target_1_avg_crew_dam toFixed 2,               // 11 (Heli 2 Crew Damage)
-        _target_1_speed,                                // 12 (Heli 2 Speed)
-        _target_1_alt,                                  // 13 (Heli 2 Altitude (Feet))
-        _target_0 getVariable ["timer_text", ""],       // 14 (Heli 1 Timer Text)
-        _target_1 getVariable ["timer_text", ""],       // 15 (Heli 2 Timer Text)
-        _target_0 getVariable ["start_speed_text", ""], // 16 (Heli 1 Start Speed Text)
-        _target_1 getVariable ["start_speed_text", ""], // 17 (Heli 2 Start Speed Text)
-        _target_0_pax_count,                            // 18 (Heli 1 Pax Count)
-        _target_1_pax_count,                            // 19 (Heli 2 Pax Count)
-        _target_0 getVariable ["scoreText", ""],        // 20 (Heli 1 Score Text)
-        _target_1 getVariable ["scoreText", ""],        // 21 (Heli 2 Score Text)
-        round _target_0_weight,                         // 22 (Heli 1 Weight)
-        round _target_1_weight,                         // 23 (Heli 2 Weight)
-        _target_0_damage_colour,                        // 24 (Heli 1 Damage Colour)
-        _target_0_crew_damage_colour,                   // 25 (Heli 1 Crew Damage Colour)
-        _target_1_damage_colour,                        // 26 (Heli 2 Damage Colour)
-        _target_1_crew_damage_colour                    // 27 (Heli 2 Crew Damage Colour)
+        "%",                                                        // 1  (Percentage Sign)
+        _target_0 getVariable ["name", str _target_0],              // 2  (Heli 1 Name)
+        _target_0_crew joinString  ", ",                            // 3  (Heli 1 Crew Names)
+        _target_0_dam toFixed 2,                                    // 4  (Heli 1 Damage)
+        _target_0_avg_crew_dam toFixed 2,                           // 5  (Heli 1 Crew Damage)
+        _target_0_speed,                                            // 6  (Heli 1 Speed)
+        _target_0_alt,                                              // 7  (Heli 1 Altitude (Feet))
+        _target_1 getVariable ["name", str _target_1],              // 8  (Heli 2 Name)
+        _target_1_crew joinString ", ",                             // 9  (Heli 2 Crew Names)
+        _target_1_dam toFixed 2,                                    // 10 (Heli 2 Damage)
+        _target_1_avg_crew_dam toFixed 2,                           // 11 (Heli 2 Crew Damage)
+        _target_1_speed,                                            // 12 (Heli 2 Speed)
+        _target_1_alt,                                              // 13 (Heli 2 Altitude (Feet))
+        _target_0 getVariable ["timer_text", ""],                   // 14 (Heli 1 Timer Text)
+        _target_1 getVariable ["timer_text", ""],                   // 15 (Heli 2 Timer Text)
+        _target_0 getVariable ["start_speed_text", ""],             // 16 (Heli 1 Start Speed Text)
+        _target_1 getVariable ["start_speed_text", ""],             // 17 (Heli 2 Start Speed Text)
+        _target_0_pax_count,                                        // 18 (Heli 1 Pax Count)
+        _target_1_pax_count,                                        // 19 (Heli 2 Pax Count)
+        _target_0 getVariable ["scoreText", ""],                    // 20 (Heli 1 Score Text)
+        _target_1 getVariable ["scoreText", ""],                    // 21 (Heli 2 Score Text)
+        round _target_0_weight,                                     // 22 (Heli 1 Weight)
+        round _target_1_weight,                                     // 23 (Heli 2 Weight)
+        _target_0_damage_colour,                                    // 24 (Heli 1 Damage Colour)
+        _target_0_crew_damage_colour,                               // 25 (Heli 1 Crew Damage Colour)
+        _target_1_damage_colour,                                    // 26 (Heli 2 Damage Colour)
+        _target_1_crew_damage_colour,                               // 27 (Heli 2 Crew Damage Colour)
+        _target_0 getVariable ["session_timer_text", "00:00.000"],  // 28 (Heli 1 Session Timer Text)
+        _target_1 getVariable ["session_timer_text", "00:00.000"]   // 29 (Heli 2 Session Timer Text)
     ];
 };

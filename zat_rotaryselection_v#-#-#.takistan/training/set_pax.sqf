@@ -1,5 +1,3 @@
-// _target = (_this select 3) select 0;
-// _number = (_this select 3) select 1;
 params ["_target", "_caller", "_actionId", "_arguments"];
 _arguments params ["_target", "_number"];
 
