@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={8305.4932,373.67731,1917.7853};
-		dir[]={0.24623896,-0.83677894,-0.48904768};
-		up[]={0.37631443,0.54754072,-0.74738657};
-		aside[]={-0.89317083,1.4901161e-008,-0.44971785};
+		pos[]={8316.375,341.1329,1904.7653};
+		dir[]={-0.63848573,-0.49531752,-0.58907449};
+		up[]={-0.36404863,0.86871153,-0.3358756};
+		aside[]={-0.678101,1.0908116e-007,0.73497969};
 	};
 };
 binarizationWanted=0;
@@ -210,7 +210,7 @@ randomSeed=7367674;
 class ScenarioData
 {
 	author="Zulu-Alpha Training Office";
-	overviewText="“The thing is, helicopters are different from planes. An airplane by it’s nature wants to fly, and if not interfered with too strongly by unusual events or by a deliberately incompetent pilot, it will fly. A helicopter does not want to fly. It is maintained in the air by a variety of forces and controls working in opposition to each other, and if there is any disturbance in this delicate balance the helicopter stops flying; immediately and disastrously. There is no such thing as a gliding helicopter.” ~ Harry Reasoner";
+	overviewText="Helicopters don't fly, they vibrate so badly the ground rejects them. - Tom Clancy";
 	overViewPicture="origin.jpg";
 	class Header
 	{
@@ -291,7 +291,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="Rotary Basics Elective v2.3.15";
+		briefingName="Rotary Basics Elective v2.3.17";
 		timeOfChanges=1800.0002;
 		startWeather=0.10049497;
 		startWind=0.099460296;
