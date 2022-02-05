@@ -16,7 +16,7 @@
 	private _belongs_to = _x getVariable ["belongs_to", ""];
 	private _orphaned = isNull objectParent _x;
 
-	if ((_belongs_to == "Heli 1" or _belongs_to == "Heli 2") && _orphaned) then {
+	if ((_belongs_to == "helipax") && _orphaned) then {
 		deleteVehicle _x;
 	};
 } forEach allUnits;

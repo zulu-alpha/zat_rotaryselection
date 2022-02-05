@@ -31,27 +31,31 @@ private _formattedTime = [_time, "MM:SS.MS"] call BIS_fnc_secondstoString;
 private _resultText = "";
 switch (_result) do {
 	case 0: {
-		_resultText = format ["Result: <t color='#e80000'>%1</t><br/>", 'Failed'];
+		_resultText = format ["<t color='#4d4dff'>Result:</t> <t color='#e80000'>%1</t><br/>", 'Failed'];
 	};
 	case 1: {
-		_resultText = format ["Result: <t color='#00bf16'>%1</t><br/>", 'Passed'];
+		_resultText = format ["<t color='#4d4dff'>Result:</t> <t color='#00bf16'>%1</t><br/>", 'Passed'];
 	};
 	case 2: {
-		_resultText = format ["Result: <t color='#FFD700'>%1</t><br/>", 'Merit'];
+		_resultText = format ["<t color='#4d4dff'>Result:</t> <t color='#FFD700'>%1</t><br/>", 'Merit'];
 	};
 	default { };
 };
 
+// Get the system date and time
+private _systemDateTimeArray = systemTime apply {if (_x < 10) then {"0" + str _x} else {str _x}};
+private _systemDateTime = format ["%1/%2/%3 %4:%5:%6", _systemDateTimeArray select 0, _systemDateTimeArray select 1, _systemDateTimeArray select 2, _systemDateTimeArray select 3, _systemDateTimeArray select 4, _systemDateTimeArray select 5];
+
 // Set each line of the score block
 // Seperated to enable logic to be added later if required
-private _exerciseText = format ["<br/>%1 Score<br/>", _exercise];
-private _playerText = format ["Pilot: <t color='#ffff00'>%1</t><br/>", _player];
-private _dsText = format ["DS: <t color='#ffff00'>%1</t><br/>", _ds];
-private _timeText = format ["Time: <t color='#ffff00'>%1</t><br/>", _formattedTime];
-private _paxText = format ["Pax: <t color='#ffff00'>%1</t><br/>", _pax];
-private _vehicleDamageText = format ["Damage: <t color='#ffff00'>%1%2</t><br/>", _vehicleDamage, "%"];
-private _crewDamageText = format ["Crew Damage: <t color='#ffff00'>%1%2</t><br/>", _crewDamage, "%"];
-private _entrySpeedText = format ["Entry Speed: <t color='#ffff00'>%1Km/h</t><br/>", _entrySpeed];
+private _exerciseText = format ["<br/><t color='#4d4dff'>%1 Score. Date:</t> <t color='#ffff00'>%2</t><br/>", _exercise, _systemDateTime];
+private _playerText = format ["<t color='#4d4dff'>Pilot:</t> <t color='#ffff00'>%1</t><br/>", _player];
+private _dsText = format ["<t color='#4d4dff'>DS:</t> <t color='#ffff00'>%1</t><br/>", _ds];
+private _timeText = format ["<t color='#4d4dff'>Time:</t> <t color='#ffff00'>%1</t><br/>", _formattedTime];
+private _paxText = format ["<t color='#4d4dff'>Pax:</t> <t color='#ffff00'>%1</t><br/>", _pax];
+private _vehicleDamageText = format ["<t color='#4d4dff'>Damage:</t> <t color='#ffff00'>%1%2</t><br/>", _vehicleDamage, "%"];
+private _crewDamageText = format ["<t color='#4d4dff'>Crew Damage:</t> <t color='#ffff00'>%1%2</t><br/>", _crewDamage, "%"];
+private _entrySpeedText = format ["<t color='#4d4dff'>Entry Speed:</t> <t color='#ffff00'>%1Km/h</t><br/>", _entrySpeed];
 
 if (_entrySpeed == 0) then {
 	_entrySpeedText = "";

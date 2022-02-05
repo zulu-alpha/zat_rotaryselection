@@ -17,11 +17,13 @@
 ] call ZAMF_fnc_init;
 
 // Devas Autopilot
-[] execVM "AutoPilot\AutoPilotInit.sqf";
+// [] execVM "AutoPilot\AutoPilotInit.sqf";
 
-//// Your code here
-// Monitor status
-["heli_1","heli_2"] execVM "training\monitor.sqf";
+// Your code here
+
 
 // Garbage collect orphaned ai every 30 seconds
 [] execVM "training\garbage_collector.sqf";
+
+// Run monitor loop on each player computer
+[] execVM "training\monitor.sqf";

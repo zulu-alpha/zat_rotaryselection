@@ -38,21 +38,23 @@ _fnc_add_crew = {
 	private _group = creategroup west;
 	for "_i" from 0 to _n do {
 		_x = _group createUnit ["B_Soldier_F", [0, 0, 0], [], 0, "NONE"];
-        _x setVariable ["belongs_to", _heli_name, true];
+        _x setVariable ["belongs_to", "helipax", true];
 		_added = _added + 1;
 	};
 	{
         _x assignAsCargo _heli;
         _x moveInCargo [_heli, _forEachindex];
+		_x disableAI "all";
     } forEach units _group;	
 };
 
 _fnc_add_copilot = {
 	private _group = creategroup west;
 	private _unit = _group createUnit ["B_Soldier_F", [0, 0, 0], [], 0, "NONE"];
-	_unit setVariable ["belongs_to", _heli_name, true];
+	_unit setVariable ["belongs_to", "helipax", true];
 	_unit assignAsTurret [_heli, [0]];
 	_unit moveInTurret [_heli, [0]];
+	_unit disableAI "all";
 	_added = _added + 1;
 };
 

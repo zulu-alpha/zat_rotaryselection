@@ -34,14 +34,15 @@ _heli setVariable ["timer_running", false, true];
 _heli setVariable ["start_speed_text", "", true];
 _heli setVariable ["timer_text", "", true];
 
-_heli addAction ["Repair", "training\recovery_fix.sqf", [_name], 1.5, true, true, "", "!(isNull objectParent player)", 5];
-_heli addAction ["Disable Engine", "training\recovery_eng.sqf", [_name,1], 1.5, true, true, "", "!(isNull objectParent player)", 5];
-_heli addAction ["Disable Tail Rotor", "training\recovery_tail.sqf", [_name,1], 1.5, true, true, "", "!(isNull objectParent player)", 5];
-_heli addAction ["Add Pax", "training\set_pax.sqf", [_name,6], 1.5, true, true, "", "!(isNull objectParent player)", 5];
-_heli addAction ["Remove Pax", "training\set_pax.sqf", [_name,1], 1.5, true, true, "", "!(isNull objectParent player)", 5];
 
-_heli addAction ["Start Timer", "training\session_timer.sqf", [_name,"start"], 1.5, true, true, "", "!(isNull objectParent player)", 5];
-_heli addAction ["Stop Timer", "training\session_timer.sqf", [_name,"stop"], 1.5, true, true, "", "!(isNull objectParent player)", 5];
+[_heli, ["Repair", "training\recovery_fix.sqf", [_heli], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
+[_heli, ["Disable Engine", "training\recovery_eng.sqf", [_heli,1], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
+[_heli, ["Disable Tail Rotor", "training\recovery_tail.sqf", [_heli,1], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
+[_heli, ["Add Pax", "training\set_pax.sqf", [_heli,6], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
+[_heli, ["Remove Pax", "training\set_pax.sqf", [_heli,1], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
+[_heli, ["Start Timer", "training\session_timer.sqf", [_heli,"start"], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
+[_heli, ["Stop Timer", "training\session_timer.sqf", [_heli,"stop"], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
+[_heli, ["Reset Exercise", "training\reset_exercise.sqf", [_heli], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
 
 call _fnc_cleanup_control;
 call _fnc_cleanup_precision;

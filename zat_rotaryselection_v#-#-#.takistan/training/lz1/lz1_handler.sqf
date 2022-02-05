@@ -7,7 +7,7 @@ _isStarted = _heli getVariable ["lz1IsStarted", false];
 _lzLanded = _heli getVariable ["lz1Landed", false];
 _driver = name (driver _heli);
 _copilot = _heli turretUnit [0];
-_copilot_name = name (_copilot);
+_copilot_name = name _copilot;
 
 if (!(isPlayer _copilot)) then {
     _copilot_name = "";
@@ -53,26 +53,26 @@ _fnc_get_scores = {
 	// Set result to 0 (failed)
 	_result = 0;
 
+	private _formattedTime = [_time, "MM:SS.MS"] call BIS_fnc_secondstoString;
+	titleText [_formattedTime, "PLAIN", 0.5];
+
 	if (_damage == 0.0 and _crew_damage == 0.0 and _entry_speed >= 190 and _entry_speed <= 210) then {
 
 		// Normal Pass
 		if (_time <= 73 and _time > 63) then {
 			["TaskSucceeded", ["Success","You passed this exercise.", 10]] call BIS_fnc_showNotification;
-			_heli setVariable ["lz1Passed", true, true];
 			_result = 1;
 		};
 
 		// Merit Pass
 		if (_time <= 63) then {
 			["TaskSucceeded", ["Merit","Congratulations, you passed this exercise with merit!", 10]] call BIS_fnc_showNotification;		
-			_heli setVariable ["lz1Passed", true, true];
-			_heli setVariable ["lz1PassedWithMerit", true, true];
 			_result = 2;
 		};
 
 		// Time Fail
 		if (_time > 73) then {
-			["TaskFailed", ["Fail","Exercise failed. You must complete the exercise within 03:40", 10]] call BIS_fnc_showNotification;		
+			["TaskFailed", ["Fail","Exercise failed. You must complete the exercise within 01:13", 10]] call BIS_fnc_showNotification;		
 		};
 	};
 

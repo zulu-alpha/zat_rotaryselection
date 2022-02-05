@@ -1,74 +1,6 @@
-params ["_heli_1", "_heli_2"];
+if !(hasInterface) exitwith {};	
 
-if !(hasinterface) exitwith {};
-
-_fnc_timer = {
-    params ["_heli"];
-    if (_heli getVariable ["timer_running", false]) then {
-        private _start_time = _heli getVariable ["time_start", 0];
-        _current_time = if (isMultiplayer) then {
-            servertime
-        } else {
-            diag_ticktime
-        };
-        _time = _current_time - _start_time;
-        _heli setVariable ["timer_value", _time];
-
-        _formattedtime = [_time, "MM:SS.MS"] call BIS_fnc_secondstoString;
-        _exercise = _heli getVariable ["exercise", ""];
-
-        // format for LZ-1 and LZ-2
-        _timer_text = format ["<br/>%2 Timer: <t color='#ffff00'>%1</t>", _formattedtime, _exercise];
-
-        // format for precision (includes lap counter)
-        if (_exercise == "precision" and _heli getVariable ["precisionIsStarted", false]) then {
-            _timer_text = format ["<br/>%2 Timer: <t color='#ffff00'>%1 (Lap: %3/5)</t>", _formattedtime, _exercise, _heli getVariable ["precisionLapcount", 0]];
-        };
-
-        // format for Control (timer stops on 20 seconds)
-        if (_exercise == "Control") then {
-            if ((_current_time - _start_time) >= 20.0 and _heli getVariable ["controlIsStarted", false]) then {
-                _heli setVariable ["timer_running", false, true];
-                _trigger = _heli getVariable ["trigger", ""];
-                switch (_trigger) do {
-                    case "LZ1": {
-                        _heli setVariable ["controlPos1", true, true];
-                        titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
-                        };
-                    case "LZ2": {
-                        if (_heli getVariable ["controlPos1", false]) then {
-                            _heli setVariable ["controlPos2", true, true];
-                            titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
-                        } else {
-                            titleText ["You must complete LZ1 first!", "PLAIN", 0.2];
-                        };
-                    };
-                    case "LZ3": {
-                        if (_heli getVariable ["controlPos2", false]) then {
-                            _heli setVariable ["controlPos3", true, true];
-                            titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
-                        } else {
-                            titleText ["You must complete LZ2 first!", "PLAIN", 0.2];
-                        };
-                    };
-                    case "LZ4": {
-                        if (_heli getVariable ["controlPos3", false]) then {
-                            _heli setVariable ["controlPos4", true, true];
-                            titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
-                        } else {
-                            titleText ["You must complete LZ3 first!", "PLAIN", 0.2];
-                        };
-                    };
-                    default { };
-                };
-                _timer_text = format ["<br/>%2 %3 Timer: <t color='#ffff00'>%1</t>", "00:20.000", _exercise, _trigger];
-                playSound3D ["a3\sounds_f\air\Heli_Attack_02\alarm.wss", player];
-            };
-        };
-        _heli setVariable ["timer_text", _timer_text, true];
-    };
-};
-
+// Session timer
 _fnc_session_timer = {
     params ["_heli"];
     if (_heli getVariable ["session_timer_running", false]) then {
@@ -80,223 +12,222 @@ _fnc_session_timer = {
         };
 
         private _time = _current_time - _start_time;
-        _heli setVariable ["session_timer_value", _time];
+        _heli setVariable ["session_timer_value", _time, true];
 
         private _formattedtime = [_time, "MM:SS.MS"] call BIS_fnc_secondstoString;
 
-        _heli setVariable ["session_timer_text", format ["<t color='#ffff00'>%1</t>", _formattedtime]];
+        _heli setVariable ["session_timer_text", format ["<t color='#ffff00'>%1</t>", _formattedtime], true];
     };
 };
 
-_target_0_damage_colour = '#ffff00';
-_target_0_crew_damage_colour = '#ffff00';
-_target_1_damage_colour = '#ffff00';
-_target_1_crew_damage_colour = '#ffff00';
+// Timer
+_fnc_timer = {
+	params ["_heli"];
+	if (_heli getVariable ["timer_running", false]) then {
+        private _start_time = _heli getVariable ["time_start", 0];
+        private _current_time = if (isMultiplayer) then {
+            servertime
+        } else {
+            diag_ticktime
+        };
+        private _time = _current_time - _start_time;
+        _heli setVariable ["timer_value", _time];
+	};
+};
 
-while {
-    sleep 0.1;
-    true
-} do {
-    private ["_target_0", "_target_1"];
+// Run continuously
+while {sleep 0.1; true; } do {
 
-    waitUntil {
-        _target_0 = call compile format ["%1", _heli_1];
-        _target_1 = call compile format ["%1", _heli_2];
-        !(isNull _target_0) and !(isNull _target_1)
-    };
+	// Only run if player is inside a vehicle
+	if !(isNull objectParent player) then {
+		private _heli = objectParent player;
 
-    // Weight
-    _target_0_weight_array = weightRTD _target_0;
-    _target_1_weight_array = weightRTD _target_1;
+		// Start Timers
+		[_heli] call _fnc_timer;
+		[_heli] call _fnc_session_timer;
 
-    _target_0_weight = 0;
-    {
-        _target_0_weight = _target_0_weight + _x;
-    } forEach _target_0_weight_array;
+		// Disable engine on auto hover
+		if (isAutoHoverOn _heli) then {
+			_heli setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
+        	_heli engineOn false;
+		};		
 
-    _target_1_weight = 0;
-    {
-        _target_1_weight = _target_1_weight + _x;
-    } forEach _target_1_weight_array;
+		// Weight
+		private _weight_array = weightRTD _heli;
+		private _weight = 0;
+		{
+			_weight = _weight + _x;
+		} foreach _weight_array;
 
-    // Heli 1 Crew
-    _target_0_crew = [];
-    {
-        if (isPlayer _x) then {
-            _target_0_crew set [count _target_0_crew, name _x];
-        }
-    } forEach crew _target_0;
+		// Crew and Pax
+		private _crew = [];
+		private _pax = 0;
+		{
+			if (isPlayer _x) then {
+				_crew set [count _crew, name _x];
+			} else {
+				_pax = _pax + 1;
+			};
+		} foreach crew _heli;
 
-    // Heli 1 Pax
-    _target_0_pax_count = 0;
-    {
-        if (!isPlayer _x) then {
-            _target_0_pax_count = _target_0_pax_count + 1;
-        }
-    } forEach crew _target_0;
+		// Damage colours
+		private _damage_colour = '#ffff00';
+		private _crew_damage_colour = '#ffff00';
 
-    // Heli 1 Damage
-    _target_0_avg_crew_dam = 0;
-    _t_0_i = (count _target_0_crew) + _target_0_pax_count;
-    if (_t_0_i > 0) then {
-        {
-            _target_0_avg_crew_dam = _target_0_avg_crew_dam + (damage _x);
-        } forEach crew _target_0;
-        _target_0_avg_crew_dam = (_target_0_avg_crew_dam * 100) / _t_0_i;
-    };
+		// Heli Damage
+		private _heli_damage = ((damage _heli) * 100);
 
-    // Heli 2 Crew
-    _target_1_crew = [];
-    {
-        if (isPlayer _x) then {
-            _target_1_crew set [count _target_1_crew, name _x];
-        }
-    } forEach crew _target_1;
+		// Crew Damage
+		private _crew_damage = 0;
+		private _h_i = (count _crew) + _pax;
+		if (_h_i > 0) then {
+			{
+				_crew_damage = _crew_damage + (damage _x);
+			} foreach crew _heli;
+			_crew_damage = (_crew_damage * 100) / _h_i;
+		};
 
-    // Heli 2 Pax
-    _target_1_pax_count = 0;
-    {
-        if (!isPlayer _x) then {
-            _target_1_pax_count = _target_1_pax_count + 1;
-        }
-    } forEach crew _target_1;
+		// Set damage colours
+		if (_heli_damage > 0) then {
+			_damage_colour = '#e80000';
+		} else {
+			_damage_colour = '#ffff00';
+		};
 
+		if (_crew_damage > 0) then {
+			_crew_damage_colour = '#e80000';
+		} else {
+			_crew_damage_colour = '#ffff00';
+		};
 
-    // Heli 2 Damage
-    _target_1_avg_crew_dam = 0;
-    _t_1_i = (count _target_1_crew) + _target_1_pax_count;
-    if (_t_1_i > 0) then {
-        {
-            _target_1_avg_crew_dam = _target_1_avg_crew_dam + (damage _x);
-        } forEach crew _target_1;
-        _target_1_avg_crew_dam = (_target_1_avg_crew_dam * 100) / _t_1_i;
-    };
+		// Speed
+		private _speed = round (speed _heli);
 
+		// Altitude (converted to feet)
+		private _altitude = round(((getPosASL _heli) select 2) * 3.28084);
 
-    // Start timers
-    [_target_0] call _fnc_timer;
-    [_target_1] call _fnc_timer;
+		private _timer_addon_str = "";
 
-    // Start Session timers
-    [_target_0] call _fnc_session_timer;
-    [_target_1] call _fnc_session_timer;
+		// Get formatted timer value
+		private _formatted_time = [_heli getVariable ["timer_value", 0], "MM:SS.MS"] call BIS_fnc_secondstoString;
+		switch (_heli getVariable ["exercise", ""]) do {
+			case "LZ-1": { };
+			case "LZ-2": { };
+			case "Precision": {
+				if (_heli getVariable ["precisionIsStarted", false]) then {
+					_timer_addon_str = format ["(Lap: %1/5)", _heli getVariable ["precisionLapcount", 0]];
+				};
+			};
+			case "Control": {
+				if (_heli getVariable ["timer_running", false] and _heli getVariable ["timer_value", 0] >= 20 and _heli getVariable ["controlIsStarted", false]) then {
+					_heli setVariable ["timer_running", false, true];
+					_heli setVariable ["timer_value", 20, true];
+					_trigger = _heli getVariable ["trigger", ""];
+					switch (_trigger) do {
+						case "LZ1": {
+							_heli setVariable ["controlPos1", true, true];
+							titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
+							};
+						case "LZ2": {
+							if (_heli getVariable ["controlPos1", false]) then {
+								_heli setVariable ["controlPos2", true, true];
+								titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
+							} else {
+								titleText ["You must complete LZ1 first!", "PLAIN", 0.2];
+							};
+						};
+						case "LZ3": {
+							if (_heli getVariable ["controlPos2", false]) then {
+								_heli setVariable ["controlPos3", true, true];
+								titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
+							} else {
+								titleText ["You must complete LZ2 first!", "PLAIN", 0.2];
+							};
+						};
+						case "LZ4": {
+							if (_heli getVariable ["controlPos3", false]) then {
+								_heli setVariable ["controlPos4", true, true];
+								titleText [format ["%1 Completed!", _trigger], "PLAIN", 0.2];
+							} else {
+								titleText ["You must complete LZ3 first!", "PLAIN", 0.2];
+							};
+						};
+						default { };
+					};
+					playSound3D ["a3\sounds_f\air\Heli_Attack_02\alarm.wss", player];
+					_formatted_time = [20, "MM:SS.MS"] call BIS_fnc_secondstoString;
+				};
+				// Get control lz's		
+				private _p1 = _heli getVariable ["controlPos1", false];
+				private _p2 = _heli getVariable ["controlPos2", false];
+				private _p3 = _heli getVariable ["controlPos3", false];
+				private _p4 = _heli getVariable ["controlPos4", false];
 
+				private _txt_p1 = if (_p1) then {"<t color='#00bf16'>LZ1</t>"} else {"<t color='#B8B8B8'>LZ1</t>"};
+				private _txt_p2 = if (_p2) then {"<t color='#00bf16'>LZ2</t>"} else {"<t color='#B8B8B8'>LZ2</t>"};
+				private _txt_p3 = if (_p3) then {"<t color='#00bf16'>LZ3</t>"} else {"<t color='#B8B8B8'>LZ3</t>"};
+				private _txt_p4 = if (_p4) then {"<t color='#00bf16'>LZ4</t>"} else {"<t color='#B8B8B8'>LZ4</t>"};
 
-    // Calculate damages
-    _target_0_dam = ((damage _target_0) * 100);
-    _target_1_dam = ((damage _target_1) * 100);
-    
-    // Calculate speeds
-    _target_0_speed = round (speed _target_0);
-    _target_1_speed = round (speed _target_1);
+				_timer_addon_str = format ["(%1 %2 %3 %4)", _txt_p1, _txt_p2, _txt_p3, _txt_p4];
+			};
+			default { };
+		};
 
-    // Set Heli 1 damage
-    _target_0 setVariable ["damage", _target_0_dam, true];
-    _target_0 setVariable ["crew_damage", _target_0_avg_crew_dam, true];
+		// Get all heli pilots
+		private _pilot_names = [];
+		{
+			if !(isNull objectParent _x) then {
+				private _ghost = objectParent _x;
+				if (_ghost isKindOf "Helicopter" and _x == driver _ghost) then {
+					private _str = format ["%1 (%2) [%3, %4ft, %5Km/h]", 
+						_ghost getVariable ["name", ""],					// Heli name 
+						name _x, 											// Pilot name
+						_ghost getVariable ["exercise", "None"], 			// Exercise
+						round(((getPosASL _ghost) select 2) * 3.28084),		// Altitude
+						round (speed _ghost)								// Speed
+					];
+					_pilot_names set [count _pilot_names, _str];
+				};
+			};
+		} foreach allPlayers;
 
-    // Set damage colours
-    if (_target_0_dam > 0) then {
-        _target_0_damage_colour = '#e80000';
-    } else {
-        _target_0_damage_colour = '#ffff00';
-    };
+		_pilot_names sort true;
 
-    if (_target_0_avg_crew_dam > 0) then {
-        _target_0_crew_damage_colour = '#e80000';
-    } else {
-        _target_0_crew_damage_colour = '#ffff00';
-    };
+		// Set text lines
+		private _txt_align_left = "<t align='left'>";		
+		private _txt_name = format ["%1 <t color='#ffff00'>(%2Kg)</t> <t color='#ffff00' align='right'>%3</t>", _heli getVariable ["name", ""], round _weight, _heli getVariable ["session_timer_text", "00:00.000"]];
+		private _txt_crew = format ["<br/>Crew: <t color='#ffff00'>%1</t>", _crew joinString ", "];
+		private _txt_pax = format ["<br/>Pax: <t color='#ffff00'>%1</t>", _pax];
+		private _txt_damage = format ["<br/>Damage: [<t color='%1'>%2%3</t>, <t color='%4'>%5%3</t>]", _damage_colour, _heli_damage toFixed 2, '%', _crew_damage_colour, _crew_damage toFixed 2];
+		private _txt_speed = format ["<br/>Speed: <t color='#ffff00'>%1 Km/h</t>", _speed];
+		private _txt_altitude = format ["<br/>Altitude: <t color='#ffff00'>%1 ft</t>", _altitude];
+		private _txt_exercise = format ["<br/>Exercise: <t color='#ffff00'>%1</t>", _heli getVariable ["exercise", ""]];
+		private _txt_timer = format ["<br/>Timer: <t color='#ffff00'>%1 %2</t>", _formatted_time, _timer_addon_str];
+		private _txt_entry_speed = format ["%1", _heli getVariable ["start_speed_text", ""]];
+		private _txt_score = format ["<br/>%1", _heli getVariable ["scoreText", ""]];
+		private _txt_pilots = format ["<br/><br/><br/><br/>Pilots:<br/><t color='#ffff00'>%1</t>", _pilot_names joinString "<br/>"];
+		private _txt_close_align_left = "</t>";
 
-    if (_target_1_dam > 0) then {
-        _target_1_damage_colour = '#e80000';
-    } else {
-        _target_1_damage_colour = '#ffff00';
-    };
+		// Combine format strings into one
+		private _txt = parseText format ["%1%2%3%4%5%6%7%8%9%10%11%12",
+			_txt_align_left, 
+			_txt_name, 
+			_txt_crew, 
+			_txt_pax, 
+			_txt_damage, 
+			_txt_speed, 
+			_txt_altitude, 
+			_txt_exercise,
+			_txt_timer,
+			_txt_entry_speed,
+			_txt_score,
+			_txt_pilots,
+			_txt_close_align_left
+		];
 
-    if (_target_1_avg_crew_dam > 0) then {
-        _target_1_crew_damage_colour = '#e80000';
-    } else {
-        _target_1_crew_damage_colour = '#ffff00';
-    };
-
-
-    // Set Heli 2 damage
-    _target_1 setVariable ["damage", _target_1_dam, true];
-    _target_1 setVariable ["crew_damage", _target_1_avg_crew_dam, true];
-
-    // Calculate Altitude
-    // Convert to Feet (meters * 3.28084)
-    _target_0_alt = round (((getPosASL _target_0) select 2) * 3.28084);
-    _target_1_alt = round (((getPosASL _target_1) select 2) * 3.28084);
-
-
-    // Heli 1 Autohover punishment
-    if ((isAutoHoverOn _target_0)) then {
-        _target_0 setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
-        _target_0 engineOn false;
-        private _sucker_0 = _target_0_crew select 0;
-        _sucker_0 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker_0];
-        _target_0_crew set [0, _sucker_0];
-    };
-
-    // Heli 2 Autohover punishment
-    if ((isAutoHoverOn _target_1)) then {
-        _target_1 setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
-        private _sucker_1 = _target_1_crew select 0;
-        _sucker_1 = format ["<t color='#ff2684'>%1 (L)</t>", _sucker_1];
-        _target_1_crew set [0, _sucker_1];
-    };
-
-    // Build text string
-    hintSilent parsetext format ["
-        <t align='left'>%2 <t color='#ffff00'>(%22Kg)</t> <t color='#ffff00' align='right'>%28</t>
-        <br/>Crew: <t color='#ffff00'>%3</t>
-        <br/>Pax: <t color='#ffff00'>%18</t>
-        <br/>Damage: [<t color='%24'>%4%1</t>, <t color='%25'>%5%1</t>]
-        <br/>Speed: <t color='#ffff00'>%6 Km/h</t>
-        <br/>Altitude: <t color='#ffff00'>%7 ft</t>
-        %14
-        %16
-        <br/>
-        %20
-        <br/>
-        <br/>%8 <t color='#ffff00'>(%23Kg)</t> <t color='#ffff00' align='right'>%29</t>
-        <br/>Crew: <t color='#ffff00'>%9</t>
-        <br/>Pax: <t color='#ffff00'>%19</t>
-        <br/>Damage: [<t color='%26'>%10%1</t>, <t color='%27'>%11%1</t>]
-        <br/>Speed: <t color='#ffff00'>%12 Km/h</t>
-        <br/>Altitude: <t color='#ffff00'>%13 ft</t>
-        %15
-        %17
-        <br/>%21",
-        "%",                                                        // 1  (Percentage Sign)
-        _target_0 getVariable ["name", str _target_0],              // 2  (Heli 1 Name)
-        _target_0_crew joinString  ", ",                            // 3  (Heli 1 Crew Names)
-        _target_0_dam toFixed 2,                                    // 4  (Heli 1 Damage)
-        _target_0_avg_crew_dam toFixed 2,                           // 5  (Heli 1 Crew Damage)
-        _target_0_speed,                                            // 6  (Heli 1 Speed)
-        _target_0_alt,                                              // 7  (Heli 1 Altitude (Feet))
-        _target_1 getVariable ["name", str _target_1],              // 8  (Heli 2 Name)
-        _target_1_crew joinString ", ",                             // 9  (Heli 2 Crew Names)
-        _target_1_dam toFixed 2,                                    // 10 (Heli 2 Damage)
-        _target_1_avg_crew_dam toFixed 2,                           // 11 (Heli 2 Crew Damage)
-        _target_1_speed,                                            // 12 (Heli 2 Speed)
-        _target_1_alt,                                              // 13 (Heli 2 Altitude (Feet))
-        _target_0 getVariable ["timer_text", ""],                   // 14 (Heli 1 Timer Text)
-        _target_1 getVariable ["timer_text", ""],                   // 15 (Heli 2 Timer Text)
-        _target_0 getVariable ["start_speed_text", ""],             // 16 (Heli 1 Start Speed Text)
-        _target_1 getVariable ["start_speed_text", ""],             // 17 (Heli 2 Start Speed Text)
-        _target_0_pax_count,                                        // 18 (Heli 1 Pax Count)
-        _target_1_pax_count,                                        // 19 (Heli 2 Pax Count)
-        _target_0 getVariable ["scoreText", ""],                    // 20 (Heli 1 Score Text)
-        _target_1 getVariable ["scoreText", ""],                    // 21 (Heli 2 Score Text)
-        round _target_0_weight,                                     // 22 (Heli 1 Weight)
-        round _target_1_weight,                                     // 23 (Heli 2 Weight)
-        _target_0_damage_colour,                                    // 24 (Heli 1 Damage Colour)
-        _target_0_crew_damage_colour,                               // 25 (Heli 1 Crew Damage Colour)
-        _target_1_damage_colour,                                    // 26 (Heli 2 Damage Colour)
-        _target_1_crew_damage_colour,                               // 27 (Heli 2 Crew Damage Colour)
-        _target_0 getVariable ["session_timer_text", "00:00.000"],  // 28 (Heli 1 Session Timer Text)
-        _target_1 getVariable ["session_timer_text", "00:00.000"]   // 29 (Heli 2 Session Timer Text)
-    ];
+		// Show hint text on screen
+		hintSilent _txt;
+	} else {
+		hintSilent "";
+	};
 };

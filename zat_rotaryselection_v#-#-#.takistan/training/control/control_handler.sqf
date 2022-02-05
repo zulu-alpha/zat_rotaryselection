@@ -48,10 +48,20 @@ _fnc_get_scores = {
 	_result = 0;
 
 	if (_damage == 0.0 and _crew_damage == 0.0) then {
-		// Pass
-		["TaskSucceeded", ["Success", "You passed this exercise", 10]] call BIS_fnc_showNotification;
-        _heli setVariable ["ControlPassed", true, true];
-        _result = 1;
+		// Normal Pass
+        if (_time > 180) then {
+            ["TaskSucceeded", ["Success", "You passed this exercise", 10]] call BIS_fnc_showNotification;
+            _heli setVariable ["ControlPassed", true, true];
+            _result = 1;
+        };
+
+        // Merit Pass
+        if (_time <= 180) then {
+            ["TaskSucceeded", ["Merit", "You passed this exercise with merit!", 10]] call BIS_fnc_showNotification;
+            _heli setVariable ["ControlPassed", true, true];
+            _heli setVariable ["ControlPassedWithMerit", true, true];
+            _result = 2;
+        };
 	} else {
 	    // Damage fail
 		["TaskFailed", ["Fail","Exercise failed. No crew or airframe damage allowed.", 10]] call BIS_fnc_showNotification;
@@ -86,7 +96,7 @@ _fnc_start_timer = {
     };
 	_heli setVariable ["time_start", _current_time, true];
     _heli setVariable ["timer_running", true, true];
-	["a3\sounds_f\air\Heli_Light_01\warning.wss", 1] call _fnc_play_sound;   
+	["a3\missions_f_oldman\data\sound\beep.ogg", 1] call _fnc_play_sound;   
 };
 
 // LZ trigger
@@ -101,23 +111,19 @@ if ((_trigger == "LZ1" or _trigger == "LZ2" or _trigger == "LZ3" or _trigger == 
 	};
 };
 
-// Start / End Trigger
-if (_trigger == "StartEnd") then {
-    // Start
+// Start Trigger
+if (_trigger == "Start") then {
     if (!_isStarted) then {
         // Add pax if needed
         [2] call _fnc_set_pax;
 
-        // notify player to get ready
-        ["TaskAssigned", ["Control", "Get Ready!", 5]] call BIS_fnc_shownotification;
-
         // Stop the timer if it was running
         _heli setVariable ["timer_running", false, true];
-        _heli setVariable ["timer_value", "", true];
-        _heli setVariable ["scoreText", "", true];
+        _heli setVariable ["timer_value", 0, true];
+        // _heli setVariable ["scoreText", "", true];
 
         // Wait to give player a chance to settle before starting round
-        sleep 3;
+        sleep 2;
 
         // notify player to start with on-screen text and audible beep
         titleText ["START!", "PLAIN", 0.2];
@@ -140,15 +146,15 @@ if (_trigger == "StartEnd") then {
         // set the time to start the round
         _heli setVariable ["control_start_time", _start_time, true];
 
-		["TaskAssigned", ["Control", "Fly Heading 330° to LZ1!", 5]] call BIS_fnc_shownotification;
-
         // notify side chat of player start
         _chattext = format ["%1 Control Exercise Started!", _driver];
         PAPABEAR sideChat _chattext;
         sleep 5;
     };
+};
 
-    // End
+// End Trigger
+if (_trigger == 'End') then {
     if (_isStarted) then {
         // if all landings are completed
         if (_pos1 and _pos2 and _pos3 and _pos4) then {

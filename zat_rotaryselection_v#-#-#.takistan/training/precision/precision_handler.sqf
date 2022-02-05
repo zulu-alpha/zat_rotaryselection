@@ -93,20 +93,20 @@ _fnc_get_scores = {
 	// Set result to 0 (failed)
 	_result = 0;
 	
+	private _formattedTime = [_time, "MM:SS.MS"] call BIS_fnc_secondstoString;
+	titleText [_formattedTime, "PLAIN", 0.5];
+	
 	if (_damage == 0.0 and _crew_damage == 0.0) then {
 
 		// Normal Pass
 		if (_time <= 220 and _time > 190) then {
 			["TaskSucceeded", ["Success","You passed this exercise.", 10]] call BIS_fnc_showNotification;
-			_heli setVariable ["precisionPassed", true, true];
 			_result = 1;
 		};
 
 		// Merit Pass
 		if (_time <= 190) then {
 			["TaskSucceeded", ["Merit","Congratulations, you passed this exercise with merit!", 10]] call BIS_fnc_showNotification;		
-			_heli setVariable ["precisionPassed", true, true];
-			_heli setVariable ["precisionPassedWithMerit", true, true];
 			_result = 2;
 		};
 

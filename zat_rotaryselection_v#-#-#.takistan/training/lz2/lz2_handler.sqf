@@ -53,20 +53,20 @@ _fnc_get_scores = {
 	// Set result to 0 (failed)
 	_result = 0;
 
+	private _formattedTime = [_time, "MM:SS.MS"] call BIS_fnc_secondstoString;
+	titleText [_formattedTime, "PLAIN", 0.5];	
+
 	if (_damage == 0.0 and _crew_damage == 0.0 and _entry_speed >= 145 and _entry_speed <= 155) then {
 
 		// Normal Pass
 		if (_time <= 40 and _time > 35) then {
 			["TaskSucceeded", ["Success","You passed this exercise.", 10]] call BIS_fnc_showNotification;
-			_heli setVariable ["lz2Passed", true, true];
 			_result = 1;
 		};
 
 		// Merit Pass
 		if (_time <= 35) then {
 			["TaskSucceeded", ["Merit","Congratulations, you passed this exercise with merit!", 10]] call BIS_fnc_showNotification;
-			_heli setVariable ["lz2Passed", true, true];
-			_heli setVariable ["lz2PassedWithMerit", true, true];
 			_result = 2;
 		};
 

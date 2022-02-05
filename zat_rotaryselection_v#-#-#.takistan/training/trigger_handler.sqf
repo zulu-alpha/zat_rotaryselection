@@ -1,10 +1,7 @@
 params ["_exercise", "_trigger", "_heli"];
 
-// Run only on user machines
+// Run only on pilot's machine
 if !(local _heli) exitwith {};
-
-// Run only on the pilot's machine
-if !(player == driver _heli) exitwith {};
 
 _heli setVariable ["exercise", _exercise, true];
 _heli setVariable ["trigger", _trigger, true];
