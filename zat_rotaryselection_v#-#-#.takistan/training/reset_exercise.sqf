@@ -33,6 +33,7 @@ if (_heli getVariable ["exercise", ""] != "") then {
 	private _exercise = _heli getVariable ["exercise", ""];
 	PAPABEAR = [west, "airbase"];
 
+
 	switch (_exercise) do {
 		case "LZ-1": { call _fnc_cleanup_lz1; };
 		case "LZ-2": { call _fnc_cleanup_lz2; };
@@ -40,6 +41,10 @@ if (_heli getVariable ["exercise", ""] != "") then {
 		case "Precision": { call _fnc_cleanup_precision; };
 		default { };
 	};
+
+	_heli setVariable ["exercise", "", true];
+	_heli setVariable ["timer_running", false, true];
+	_heli setVariable ["timer_value", 0, true];
 
 	_chattext = format ["%1 %2 Exercise Reset!", name (driver _heli), _exercise];
     PAPABEAR sideChat _chattext;

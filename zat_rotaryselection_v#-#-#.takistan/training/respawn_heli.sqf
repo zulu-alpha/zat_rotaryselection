@@ -1,6 +1,5 @@
 params ["_heli", "_name"];
 
-
 _fnc_cleanup_control = {
     _heli setVariable ["controlIsStarted", false, true];
     _heli setVariable ["controlPos1", false, true];
@@ -31,8 +30,10 @@ _fnc_cleanup_lz2 = {
 
 _heli setVariable ["name", _name, true];
 _heli setVariable ["timer_running", false, true];
+_heli setVariable ["timer_value", 0, true];
 _heli setVariable ["start_speed_text", "", true];
 _heli setVariable ["timer_text", "", true];
+_heli setVariable ["exercise", "", true];
 
 
 [_heli, ["Repair", "training\recovery_fix.sqf", [_heli], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
@@ -48,11 +49,3 @@ call _fnc_cleanup_control;
 call _fnc_cleanup_precision;
 call _fnc_cleanup_lz1;
 call _fnc_cleanup_lz2;
-
-{
-    _belongsto = _x getVariable ["belongs_to", ""];
-    if (_belongsto == _name) then {
-        _heli deletevehicleCrew _x;
-        deletevehicle _x;
-    };
-} forEach allunits;

@@ -91,7 +91,7 @@ _fnc_get_scores = {
 	
 	sleep 5;
 	// Add score to player's task list
-	["TaskUpdated", ["Score", _heli getVariable ["scoreText", ""], 15]] call BIS_fnc_showNotification;	
+	["TaskUpdated", ["Score", _heli getVariable ["scoreText", ""], 1]] call BIS_fnc_showNotification;	
 };
 
 // Start trigger

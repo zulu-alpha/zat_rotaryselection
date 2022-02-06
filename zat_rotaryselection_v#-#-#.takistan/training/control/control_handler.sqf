@@ -72,7 +72,7 @@ _fnc_get_scores = {
 	
     sleep 5;
 	// Add score to player's task list
-	["TaskUpdated", ["Score", _heli getVariable ["scoreText", ""], 15]] call BIS_fnc_showNotification;
+	["TaskUpdated", ["Score", _heli getVariable ["scoreText", ""], 1]] call BIS_fnc_showNotification;
 };
 
 // Play a sound n number of times
@@ -112,71 +112,67 @@ if ((_trigger == "LZ1" or _trigger == "LZ2" or _trigger == "LZ3" or _trigger == 
 };
 
 // Start Trigger
-if (_trigger == "Start") then {
-    if (!_isStarted) then {
-        // Add pax if needed
-        [2] call _fnc_set_pax;
+if (_trigger == "Start" and !_isStarted) then {
+    // Add pax if needed
+    [2] call _fnc_set_pax;
 
-        // Stop the timer if it was running
-        _heli setVariable ["timer_running", false, true];
-        _heli setVariable ["timer_value", 0, true];
-        // _heli setVariable ["scoreText", "", true];
+    // Stop the timer if it was running
+    _heli setVariable ["timer_running", false, true];
+    _heli setVariable ["timer_value", 0, true];
+    // _heli setVariable ["scoreText", "", true];
 
-        // Wait to give player a chance to settle before starting round
-        sleep 2;
+    // Wait to give player a chance to settle before starting round
+    sleep 2;
 
-        // notify player to start with on-screen text and audible beep
-        titleText ["START!", "PLAIN", 0.2];
-        ["a3\sounds_f\air\Heli_Attack_02\alarm.wss", 1] call _fnc_play_sound;
+    // notify player to start with on-screen text and audible beep
+    titleText ["START!", "PLAIN", 0.2];
+    ["a3\sounds_f\air\Heli_Attack_02\alarm.wss", 1] call _fnc_play_sound;
 
-        // Update variables
-        _heli setVariable ["controlIsStarted", true, true];
-        _heli setVariable ["controlPos1", false, true];
-        _heli setVariable ["controlPos2", false, true];
-        _heli setVariable ["controlPos3", false, true];
-        _heli setVariable ["controlPos4", false, true];
+    // Update variables
+    _heli setVariable ["controlIsStarted", true, true];
+    _heli setVariable ["controlPos1", false, true];
+    _heli setVariable ["controlPos2", false, true];
+    _heli setVariable ["controlPos3", false, true];
+    _heli setVariable ["controlPos4", false, true];
 
-        // Get the current time
-        _start_time = if (isMultiplayer) then {
+    // Get the current time
+    _start_time = if (isMultiplayer) then {
+        servertime
+    } else {
+        diag_ticktime
+    };
+
+    // set the time to start the round
+    _heli setVariable ["control_start_time", _start_time, true];
+
+    // notify side chat of player start
+    _chattext = format ["%1 Control Exercise Started!", _driver];
+    PAPABEAR sideChat _chattext;
+    sleep 5;
+};
+
+// End Trigger
+if (_trigger == 'End' and _isStarted) then {
+    // if all landings are completed
+    if (_pos1 and _pos2 and _pos3 and _pos4) then {
+        // Get the end time
+        _end_time = if (isMultiplayer) then {
             servertime
         } else {
             diag_ticktime
         };
 
-        // set the time to start the round
-        _heli setVariable ["control_start_time", _start_time, true];
+        _heli setVariable ["controlIsStarted", false, true];
+        _heli setVariable ["control_end_time", _end_time, true];
 
-        // notify side chat of player start
-        _chattext = format ["%1 Control Exercise Started!", _driver];
+        // Show round end to player
+        titleText ["Exercise Completed!", "PLAIN", 0.2];
+
+        // Show task complete to side chat
+        _chattext = format ["%1 Control Exercise Completed!", _driver];
         PAPABEAR sideChat _chattext;
-        sleep 5;
-    };
-};
 
-// End Trigger
-if (_trigger == 'End') then {
-    if (_isStarted) then {
-        // if all landings are completed
-        if (_pos1 and _pos2 and _pos3 and _pos4) then {
-            // Get the end time
-            _end_time = if (isMultiplayer) then {
-                servertime
-            } else {
-                diag_ticktime
-            };
-
-            _heli setVariable ["controlIsStarted", false, true];
-			_heli setVariable ["control_end_time", _end_time, true];
-
-            // Show round end to player
-            titleText ["Exercise Completed!", "PLAIN", 0.2];
-
-            // Show task complete to side chat
-            _chattext = format ["%1 Control Exercise Completed!", _driver];
-            PAPABEAR sideChat _chattext;
-
-			call _fnc_get_scores;
-			call _fnc_cleanup_heli;
-        };
+        call _fnc_get_scores;
+        call _fnc_cleanup_heli;
     };
 };

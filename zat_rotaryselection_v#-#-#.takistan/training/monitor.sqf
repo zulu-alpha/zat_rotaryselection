@@ -50,7 +50,7 @@ while {sleep 0.1; true; } do {
 		if (isAutoHoverOn _heli) then {
 			_heli setHit [getText(configfile >> "CfgVehicles" >> "B_Heli_Light_01_F" >> "HitPoints" >> "HitEngine" >> "name"), 1];
         	_heli engineOn false;
-		};		
+		};
 
 		// Weight
 		private _weight_array = weightRTD _heli;
@@ -179,12 +179,14 @@ while {sleep 0.1; true; } do {
 			if !(isNull objectParent _x) then {
 				private _ghost = objectParent _x;
 				if (_ghost isKindOf "Helicopter" and _x == driver _ghost) then {
-					private _str = format ["%1 (%2) [%3, %4ft, %5Km/h]", 
+					private _str = format ["%1 %2 [%3ft, %4Km/h] [%5 %6 %7]", 
 						_ghost getVariable ["name", ""],					// Heli name 
 						name _x, 											// Pilot name
-						_ghost getVariable ["exercise", "None"], 			// Exercise
 						round(((getPosASL _ghost) select 2) * 3.28084),		// Altitude
-						round (speed _ghost)								// Speed
+						round (speed _ghost),								// Speed
+						_ghost getVariable ["exercise", "None"], 			// Exercise
+						_ghost getVariable ["exercise_time", " "],           // Exercise time
+						_ghost getVariable ["exercise_result", " "]			// Exercise result
 					];
 					_pilot_names set [count _pilot_names, _str];
 				};
@@ -205,7 +207,7 @@ while {sleep 0.1; true; } do {
 		private _txt_timer = format ["<br/>Timer: <t color='#ffff00'>%1 %2</t>", _formatted_time, _timer_addon_str];
 		private _txt_entry_speed = format ["%1", _heli getVariable ["start_speed_text", ""]];
 		private _txt_score = format ["<br/>%1", _heli getVariable ["scoreText", ""]];
-		private _txt_pilots = format ["<br/><br/><br/><br/>Pilots:<br/><t color='#ffff00'>%1</t>", _pilot_names joinString "<br/>"];
+		private _txt_pilots = format ["<br/><br/><br/><br/>Pilots:<br/><t color='#ffff00' size='0.7'>%1</t>", _pilot_names joinString "<br/>"];
 		private _txt_close_align_left = "</t>";
 
 		// Combine format strings into one
