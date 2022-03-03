@@ -5,10 +5,10 @@ class EditorData
 	angleGridStep=0.017453292;
 	scaleGridStep=0.1;
 	autoGroupingDist=10;
-	toggles=1637;
+	toggles=613;
 	class ItemIDProvider
 	{
-		nextID=366;
+		nextID=416;
 	};
 	class MarkerIDProvider
 	{
@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={8356.7168,353.40253,1872.2697};
-		dir[]={-0.025865078,-0.99904156,0.03531285};
-		up[]={-0.5903365,0.043771941,0.80596954};
-		aside[]={0.80674279,-1.8626451e-009,0.59090286};
+		pos[]={8185.4985,363.82495,1871.6045};
+		dir[]={0.4732011,-0.70621783,-0.52664483};
+		up[]={0.47200111,0.70799637,-0.52530837};
+		aside[]={-0.74384606,-2.2398308e-007,-0.66836131};
 	};
 };
 binarizationWanted=0;
@@ -243,7 +243,7 @@ randomSeed=7367674;
 class ScenarioData
 {
 	author="Zulu-Alpha Training Office";
-	overviewText="Helicopters don't fly, they vibrate so badly the ground rejects them. - Tom Clancy";
+	overviewText="If you are in trouble anywhere in the world, an airplane can fly over and drop flowers, but a helicopter can land and save your life. - Igor Sikorsky";
 	overViewPicture="origin.jpg";
 	class Header
 	{
@@ -324,7 +324,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="Rotary Basics Elective v2.3.22";
+		briefingName="Rotary Basics Elective v2.3.26";
 		timeOfChanges=1800.0002;
 		startWeather=0.10049497;
 		startWind=0.099460296;
@@ -346,7 +346,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=241;
+		items=243;
 		class Item0
 		{
 			dataType="Marker";
@@ -511,7 +511,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="call{this setVariable [""name"", ""Heli 5"", true];};";
+				init="call{this setVariable [""name"", ""Heli 5"", true];};" \n "this setObjectTextureGlobal [0,""a3\air_f\heli_light_01\data\skins\heli_light_01_ext_light_co.paa""];";
 				name="heli_5";
 			};
 			id=20;
@@ -572,7 +572,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="call{this setVariable [""name"", ""Heli 6"", true];};";
+				init="call{this setVariable [""name"", ""Heli 6"", true];};" \n "this setObjectTextureGlobal [0,""a3\air_f\heli_light_01\data\skins\heli_light_01_ext_light_co.paa""];";
 				name="heli_6";
 			};
 			id=21;
@@ -614,7 +614,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="call{this setVariable [""name"", ""Heli 7"", true];};";
+				init="call{this setVariable [""name"", ""Heli 7"", true];};" \n "this setObjectTextureGlobal [0,""a3\air_f\heli_light_01\data\skins\heli_light_01_ext_light_co.paa""];";
 				name="heli_7";
 			};
 			id=22;
@@ -656,7 +656,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="call{this setVariable [""name"", ""Heli 8"", true];};";
+				init="call{this setVariable [""name"", ""Heli 8"", true];};" \n "this setObjectTextureGlobal [0,""a3\air_f\heli_light_01\data\skins\heli_light_01_ext_light_co.paa""];";
 				name="heli_8";
 			};
 			id=23;
@@ -15951,7 +15951,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={8306.0654,296.04001,1842.6387};
-				angles[]={0,0,6.2826972};
+				angles[]={0,0,6.2826962};
 			};
 			areaSize[]={1,-1,1};
 			id=130;
@@ -16082,7 +16082,7 @@ class Mission
 												"SCALAR"
 											};
 										};
-										value=0;
+										value=10;
 									};
 								};
 								class Item1
@@ -18859,7 +18859,7 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={8078.7334,296.09747,2069.5144};
+				position[]={8078.7344,296.09747,2069.5142};
 				angles[]={6.2081265,0,0};
 			};
 			areaSize[]={1,-1,1};
@@ -20025,7 +20025,7 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={1483.3907,215.88417,3545.2297};
+				position[]={1483.3906,215.88417,3545.2302};
 				angles[]={6.2751846,0,6.2655869};
 			};
 			areaSize[]={1,-1,1};
@@ -31978,7 +31978,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="call{this setVariable [""name"", ""Heli 4"", true];};";
+				init="call{this setVariable [""name"", ""Heli 4"", true];};" \n "this setObjectTextureGlobal [0,""a3\air_f\heli_light_01\data\skins\heli_light_01_ext_light_co.paa""];";
 				name="heli_4";
 				textures="BlueLine";
 			};
@@ -32236,7 +32236,7 @@ class Mission
 			class Attributes
 			{
 				skill=0.60000002;
-				init="call{this setVariable [""name"", ""Heli 3"", true];};";
+				init="call{this setVariable [""name"", ""Heli 3"", true];};" \n "this setObjectTextureGlobal [0,""a3\air_f\heli_light_01\data\skins\heli_light_01_ext_light_co.paa""];";
 				name="heli_3";
 				textures="Blue";
 			};
@@ -33248,6 +33248,7 @@ class Mission
 			flags=4;
 			class Attributes
 			{
+				init="call{this setVariable [""name"", ""Heli 11"", true];};";
 				name="heli_11";
 			};
 			id=318;
@@ -33540,7 +33541,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\330_left.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\330_left.paa""];";
 				disableSimulation=1;
 			};
 			id=326;
@@ -33600,7 +33601,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\240_right.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\240_right.paa""];";
 				disableSimulation=1;
 			};
 			id=328;
@@ -33661,7 +33662,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\150_left.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\150_left.paa""];";
 				disableSimulation=1;
 			};
 			id=329;
@@ -33721,7 +33722,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\060_right.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\060_right.paa""];";
 				disableSimulation=1;
 			};
 			id=330;
@@ -33782,7 +33783,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\control_layout_v3.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\control_layout_v3.paa""];";
 				disableSimulation=1;
 			};
 			id=336;
@@ -33860,7 +33861,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\precision_layout_v2.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\precision_layout_v2.paa""];";
 				disableSimulation=1;
 			};
 			id=339;
@@ -33901,7 +33902,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\precision_leaderboard_v2.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\scores\precision\precision_leaderboard_v4.paa""];";
 				disableSimulation=1;
 			};
 			id=340;
@@ -33942,7 +33943,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTexture [0, ""images\control_leaderboard.jpg""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\scores\control\control_leaderboard_v4.paa""];";
 				disableSimulation=1;
 			};
 			id=343;
@@ -34055,11 +34056,10 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={8339.8193,296.04004,1879.0354};
+				position[]={8339.8193,296.04001,1879.035};
 			};
 			id=360;
 			type="ModuleRespawnVehicle_F";
-			atlOffset=3.0517578e-005;
 			class CustomAttributes
 			{
 				class Attribute0
@@ -34284,7 +34284,7 @@ class Mission
 					class Attributes
 					{
 						rank="CAPTAIN";
-						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team; " \n "[this, ds_1] call zamf_fnc_zeus_ensureUnit;}; ";
+						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team; " \n "[this, ds_1] call zamf_fnc_zeus_ensureUnit;};";
 						name="ds_1";
 						description="DS'0";
 						isPlayer=1;
@@ -34416,7 +34416,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={8322.8125,296.04147,1870.2097};
+						position[]={8322.8135,296.04144,1870.2101};
 						angles[]={0,5.6446571,0};
 					};
 					side="West";
@@ -34424,14 +34424,13 @@ class Mission
 					class Attributes
 					{
 						rank="LIEUTENANT";
-						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team; " \n "[this, ds_2] call zamf_fnc_zeus_ensureUnit;}; ";
+						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team; " \n "[this, ds_2] call zamf_fnc_zeus_ensureUnit;};";
 						name="ds_2";
 						description="DS'1";
 						isPlayable=1;
 					};
 					id=364;
 					type="B_officer_F";
-					atlOffset=3.0517578e-005;
 					class CustomAttributes
 					{
 						class Attribute0
@@ -34556,7 +34555,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={8328.0947,296.04144,1873.8817};
+						position[]={8328.0947,296.04144,1873.8821};
 						angles[]={0,5.6446571,0};
 					};
 					side="West";
@@ -34564,7 +34563,7 @@ class Mission
 					class Attributes
 					{
 						rank="LIEUTENANT";
-						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team; " \n "[this, ds_3] call zamf_fnc_zeus_ensureUnit;}; ";
+						init="call{nul = [this, ""ds"", ""DS""] call zamf_fnc_team; " \n "[this, ds_3] call zamf_fnc_zeus_ensureUnit;};";
 						name="ds_3";
 						description="DS'2";
 						isPlayable=1;
@@ -34696,16 +34695,98 @@ class Mission
 			};
 			id=362;
 		};
+		class Item241
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={8328.625,297.96265,1827.625};
+				angles[]={0,2.6005406,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\scores\lz1\lz1_leaderboard_v4.paa""];";
+				disableSimulation=1;
+			};
+			id=414;
+			type="Land_Billboard_03_blank_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item242
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={8323.3242,297.96738,1824.3979};
+				angles[]={0,2.5830872,0};
+			};
+			side="Empty";
+			flags=5;
+			class Attributes
+			{
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\scores\lz2\lz2_leaderboard_v4.paa""];";
+				disableSimulation=1;
+			};
+			id=415;
+			type="Land_Billboard_03_blank_F";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="allowDamage";
+					expression="_this allowdamage _value;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
 	};
 	class Connections
 	{
 		class LinkIDProvider
 		{
-			nextID=14;
+			nextID=15;
 		};
 		class Links
 		{
-			items=14;
+			items=15;
 			class Item0
 			{
 				linkID=0;
@@ -34841,6 +34922,16 @@ class Mission
 				linkID=13;
 				item0=360;
 				item1=359;
+				class CustomData
+				{
+					type="Sync";
+				};
+			};
+			class Item14
+			{
+				linkID=14;
+				item0=318;
+				item1=319;
 				class CustomData
 				{
 					type="Sync";

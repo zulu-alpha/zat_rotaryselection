@@ -35,6 +35,27 @@ _heli setVariable ["start_speed_text", "", true];
 _heli setVariable ["timer_text", "", true];
 _heli setVariable ["exercise", "", true];
 
+private _dsHelis = [
+    "Heli 1",
+    "Heli 2"
+];
+
+private _trainingHelis = [
+    "Heli 3", 
+    "Heli 4",
+    "Heli 5",
+    "Heli 6",
+    "Heli 7",
+    "Heli 8"
+];
+
+if (_name in _dsHelis) then {
+    [_heli, [0,"a3\air_f\heli_light_01\data\skins\heli_light_01_ext_vrana_co.paa"]] remoteExec ["setObjectTextureGlobal", 0, true];
+};
+
+if (_name in _trainingHelis) then {
+    [_heli, [0,"a3\air_f\heli_light_01\data\skins\heli_light_01_ext_light_co.paa"]] remoteExec ["setObjectTextureGlobal", 0, true];
+};
 
 [_heli, ["Repair", "training\recovery_fix.sqf", [_heli], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
 [_heli, ["Disable Engine", "training\recovery_eng.sqf", [_heli,1], 1.5, true, true, "", "!(isNull objectParent player)", 5]] remoteExec ["addAction",0, true];
