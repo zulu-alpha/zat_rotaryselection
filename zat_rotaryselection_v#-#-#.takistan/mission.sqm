@@ -16,10 +16,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={8185.4985,363.82495,1871.6045};
-		dir[]={0.4732011,-0.70621783,-0.52664483};
-		up[]={0.47200111,0.70799637,-0.52530837};
-		aside[]={-0.74384606,-2.2398308e-007,-0.66836131};
+		pos[]={8208.0391,446.47037,1991.4381};
+		dir[]={0.70162201,-0.17386544,0.6910128};
+		up[]={0.12387507,0.98476887,0.12200212};
+		aside[]={0.70170045,3.6787242e-008,-0.71247369};
 	};
 };
 binarizationWanted=0;
@@ -112,28 +112,28 @@ class AddonsMetaData
 			className="ace_refuel";
 			name="ACE3 - Refuel";
 			author="ACE-Team";
-			url="http://ace3mod.com/";
+			url="https://ace3.acemod.org/";
 		};
 		class Item8
 		{
 			className="ace_repair";
 			name="ACE3 - Repair";
 			author="ACE-Team";
-			url="http://ace3mod.com/";
+			url="https://ace3.acemod.org/";
 		};
 		class Item9
 		{
 			className="ace_cargo";
 			name="ACE3 - Cargo";
 			author="ACE-Team";
-			url="http://ace3mod.com/";
+			url="https://ace3.acemod.org/";
 		};
 		class Item10
 		{
 			className="ace_rearm";
 			name="ACE3 - Rearm";
 			author="ACE-Team";
-			url="http://ace3mod.com/";
+			url="https://ace3.acemod.org/";
 		};
 		class Item11
 		{
@@ -243,7 +243,7 @@ randomSeed=7367674;
 class ScenarioData
 {
 	author="Zulu-Alpha Training Office";
-	overviewText="If you are in trouble anywhere in the world, an airplane can fly over and drop flowers, but a helicopter can land and save your life. - Igor Sikorsky";
+	overviewText="Helicopters don't fly, they vibrate so badly the ground rejects them.";
 	overViewPicture="origin.jpg";
 	class Header
 	{
@@ -324,7 +324,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="Rotary Basics Elective v2.3.26";
+		briefingName="Rotary Basics Elective v2.3.27";
 		timeOfChanges=1800.0002;
 		startWeather=0.10049497;
 		startWind=0.099460296;
@@ -425,8 +425,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8367.4385,297.81915,1877.4991};
-				angles[]={0,5.6723199,0};
+				position[]={8367.5,297.81915,1877.5011};
+				angles[]={-0,5.6723199,0};
 			};
 			side="Empty";
 			flags=4;
@@ -503,8 +503,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8256.4434,297.81915,1820.5571};
-				angles[]={0,5.6723199,0};
+				position[]={8256.5,297.81915,1820.5011};
+				angles[]={-0,5.6723199,0};
 			};
 			side="Empty";
 			flags=4;
@@ -564,8 +564,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8244.7773,297.81915,1813.2261};
-				angles[]={0,5.6723199,0};
+				position[]={8244.75,297.81915,1813.2511};
+				angles[]={-0,5.6723199,0};
 			};
 			side="Empty";
 			flags=4;
@@ -606,8 +606,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8230.8936,297.81915,1805.7701};
-				angles[]={0,5.6723199,0};
+				position[]={8230.875,297.81915,1805.7511};
+				angles[]={-0,5.6723199,0};
 			};
 			side="Empty";
 			flags=4;
@@ -648,8 +648,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8218.5645,297.81915,1798.4882};
-				angles[]={0,5.6723199,0};
+				position[]={8218.625,297.81915,1798.5011};
+				angles[]={-0,5.6723199,0};
 			};
 			side="Empty";
 			flags=4;
@@ -31970,8 +31970,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8268.3008,297.81915,1827.6841};
-				angles[]={0,5.6723199,0};
+				position[]={8268.25,297.81915,1827.6261};
+				angles[]={-0,5.6723199,0};
 			};
 			side="Empty";
 			flags=4;
@@ -32228,8 +32228,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8280.9619,297.81915,1834.5831};
-				angles[]={0,5.6723199,0};
+				position[]={8281,297.81915,1834.6261};
+				angles[]={-0,5.6723199,0};
 			};
 			side="Empty";
 			flags=4;
@@ -32487,7 +32487,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={8223.2705,297.09698,1776.2574};
-				angles[]={0,5.7072268,6.2815971};
+				angles[]={-0,5.7072268,6.2816033};
 			};
 			side="Empty";
 			flags=4;
@@ -32547,7 +32547,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={8263.082,297.10254,1800.0229};
-				angles[]={6.2815971,5.7246799,6.2815971};
+				angles[]={6.2816033,5.7246799,6.2816033};
 			};
 			side="Empty";
 			flags=4;
@@ -33995,8 +33995,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={8347.3096,297.81915,1865.9844};
-				angles[]={0,5.7294273,0};
+				position[]={8347.25,297.81915,1866.0011};
+				angles[]={-0,5.7294273,0};
 			};
 			side="Empty";
 			flags=4;
@@ -34707,7 +34707,7 @@ class Mission
 			flags=5;
 			class Attributes
 			{
-				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\scores\lz1\lz1_leaderboard_v4.paa""];";
+				init="this allowDamage false; this setObjectTextureGlobal [0, ""images\scores\lz1\lz1_leaderboard_v5.paa""];";
 				disableSimulation=1;
 			};
 			id=414;

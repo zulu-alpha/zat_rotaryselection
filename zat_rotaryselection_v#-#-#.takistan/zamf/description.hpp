@@ -43,7 +43,7 @@ corpseRemovalMinTime = 5; //seconds
 corpseRemovalMaxTime = 5; //seconds
 
 // Dangerous in MP
-enableDebugConsole = 1;
+enableDebugConsole = 2;
 // 0 = Default behavior, available only in editor
 // 1 = Available in SP and for hosts / logged in admins
 // 2 = Available for everyone
